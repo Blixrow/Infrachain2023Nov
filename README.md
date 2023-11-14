@@ -4,10 +4,10 @@ https://tezos.com/developers/tutorials/building-dapp/
 # HOW TO INITIALIZE PROJECT
 - Download NPM
 - Type in order:\
-`npx create-react-app Infrachain2023Nov --template typescript`
-`npm install @taquito/taquito`
-`npm install @taquito/beacon-wallet @airgap/beacon-sdk`
-`npm install @completium/dapp-ts @completium/archetype-ts-types`
+`npx create-react-app Infrachain2023Nov --template typescript`\
+`npm install @taquito/taquito`\
+`npm install @taquito/beacon-wallet @airgap/beacon-sdk`\
+`npm install @completium/dapp-ts @completium/archetype-ts-types`\
 `npm install constate`
 - Pull project inside Infrachain2023Nov
 - Start project with `npm start`
