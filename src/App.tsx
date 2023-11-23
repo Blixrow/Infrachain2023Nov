@@ -4,7 +4,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import { EventAlert } from './components/EventAlert';
 import { TopBar } from './components/TopBar'
 import { Add } from './routes/AddPage'
 import { ErrorPage } from './routes/ErrorPage'
@@ -54,17 +53,14 @@ function DApp() {
         <BeaconProvider>
           <ContractProvider>
             <PollDataProvider>
-              <AlertsProvider>
                 <EventsProvider>
                   <Paper elevation={0}>
                     <div style={{ height: '100vh', overflow: 'auto' }}>
                     <TopBar></TopBar>
                     <RouterProvider router={router} />
-                    <EventAlert />
                     </div>
                   </Paper>
                 </EventsProvider>
-              </AlertsProvider>
             </PollDataProvider>
           </ContractProvider>
         </BeaconProvider>
