@@ -5,13 +5,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { TopBar } from './components/TopBar'
-import { Add } from './routes/AddPage'
 import { ErrorPage } from './routes/ErrorPage'
 import { Pick } from './routes/PickPage'
-import { PollPage as Poll } from './routes/PollPage'
-import { AlertsProvider } from './contexts/Alerts';
 import { BeaconProvider } from './contexts/Beacon'
-import { EventsProvider } from './contexts/Events';
 import { ContractProvider } from './contexts/Contract';
 import { PollDataProvider } from './contexts/Polls';
 import { SettingsProvider, Theme, useTheme } from './contexts/Settings';
@@ -23,15 +19,6 @@ const router = createBrowserRouter([
   {
     path: "/poll-dapp",
     element: <Pick />,
-  },
-  {
-    path: "/poll-dapp/add",
-    element: <Add />,
-  },
-  {
-    path: "/poll-dapp/poll/:hash",
-    element: <Poll />,
-    errorElement: <ErrorPage />,
   },
   {
     path: "*",
@@ -53,14 +40,12 @@ function DApp() {
         <BeaconProvider>
           <ContractProvider>
             <PollDataProvider>
-                <EventsProvider>
                   <Paper elevation={0}>
                     <div style={{ height: '100vh', overflow: 'auto' }}>
                     <TopBar></TopBar>
                     <RouterProvider router={router} />
                     </div>
                   </Paper>
-                </EventsProvider>
             </PollDataProvider>
           </ContractProvider>
         </BeaconProvider>
