@@ -1,6 +1,6 @@
 {
   "name": "esg_risk_dapp",
-  "homepage": "http://completium.github.io/poll-dapp",
+  "homepage": "main",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -36,8 +36,7 @@
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "gen-binding": "completium-cli generate binding-dapp-ts _ --input-path ./poll-contract/contracts/ --output-path ./src/bindings/"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

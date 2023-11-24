@@ -9,7 +9,6 @@ import { ErrorPage } from './routes/ErrorPage'
 import { Pick } from './routes/PickPage'
 import { BeaconProvider } from './contexts/Beacon'
 import { ContractProvider } from './contexts/Contract';
-import { PollDataProvider } from './contexts/Polls';
 import { SettingsProvider, Theme, useTheme } from './contexts/Settings';
 import { TaquitoProvider } from './contexts/Taquito';
 
@@ -17,7 +16,7 @@ import './App.css';
 
 const router = createBrowserRouter([
   {
-    path: "/poll-dapp",
+    path: "/main",
     element: <Pick />,
   },
   {
@@ -39,14 +38,12 @@ function DApp() {
       <TaquitoProvider>
         <BeaconProvider>
           <ContractProvider>
-            <PollDataProvider>
                   <Paper elevation={0}>
                     <div style={{ height: '100vh', overflow: 'auto' }}>
                     <TopBar></TopBar>
                     <RouterProvider router={router} />
                     </div>
                   </Paper>
-            </PollDataProvider>
           </ContractProvider>
         </BeaconProvider>
       </TaquitoProvider>
