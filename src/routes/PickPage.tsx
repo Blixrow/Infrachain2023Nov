@@ -5,7 +5,6 @@ import Grid2 from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 
-import { PollCard } from '../components/PollCard';
 import { usePolls } from '../contexts/Polls';
 
 export const Pick = () => {
@@ -22,7 +21,7 @@ export const Pick = () => {
           { polls.map((s,i) => {
               return <Grid2 item key={"survey_"+i} md={4} sm={6} xs={12}>
                 <Grid2 container justifyContent='center'>
-                  <PollCard data={s}/>
+
                 </Grid2>
               </Grid2>
             })

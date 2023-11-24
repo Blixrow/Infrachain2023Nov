@@ -3,7 +3,6 @@ import Grid2 from '@mui/material/Unstable_Grid2';
 import React from 'react';
 
 import { Poll } from "../contexts/Polls";
-import { ChoicePanel } from "./ChoicePanel";
 
 const getResponseCount = (choice_id : number, responses : Array<[ number, number ]>) : number => {
   for (let i = 0; i < responses.length; i++ ) {
@@ -32,15 +31,7 @@ export const PollPanel = (arg : {
       <Grid2 md={arg.preview ? 12 : 4} sm={arg.preview ? 12 : 6} xs={12} sx={{ mt: '40px' }} container>
         { arg.poll.choices.map((label, i) => {
           return <Grid2 xs={12} key={label}>
-            <ChoicePanel
-              selected={arg.choice === i}
-              set_choice={arg.setChoice}
-              choice_id={i}
-              label={label}
-              bar={arg.bar}
-              total={arg.total}
-              responders={getResponseCount(i, arg.poll.responses)}
-            />
+
           </Grid2>
         }) }
       </Grid2>
