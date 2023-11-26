@@ -3,6 +3,7 @@ https://tezos.com/developers/tutorials/building-dapp/
 
 # HOW TO INITIALIZE PROJECT
 - Pull project inside a folder
+- cd to this folder
 - Type in order:\
 `npm install @taquito/taquito`\
 `npm install @taquito/beacon-wallet @airgap/beacon-sdk`\
