@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createBrowserHistory } from 'history';
 import DetailsPage from './DetailsPage';
+import { useNavigate } from 'react-router-dom';
 
 const items: [string, string, string, string, string][] = [
   ["Item 1a", "1", "Statut 1", "NFT 1", "2023-11-27"],
@@ -20,10 +21,11 @@ const history = createBrowserHistory();
 
 const ListeFonds: React.FC = (): JSX.Element => {
   const [selectedTuple, setSelectedTuple] = useState<[string, string, string, string, string] | null>(null);
-
+  const navigate=useNavigate();
   const handleTableRowClick = (tuple: [string, string, string, string, string], index: number) => {
     setSelectedTuple(tuple);
-    history.push(`/details/${index}`);
+    //history.push(`/details/${index}`);
+    navigate("../details/"+1)
   };
 
   return (
@@ -76,7 +78,7 @@ const ListeFonds: React.FC = (): JSX.Element => {
         </Grid>
       </Grid>
       {/* Conditionnellement rendre DetailsPage */}
-      {selectedTuple && <DetailsPage {...{ selectedTuple }} />}
+      {/*selectedTuple && <DetailsPage {...{ selectedTuple }} />*/}
     </Container>
   );
 };
