@@ -65,11 +65,11 @@ const ListeFonds: React.FC = (): JSX.Element => {
         <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
           <Grid item>
             <Typography variant="h5" sx={{ fontFamily: 'Dancing Script' }}>
-              Aller à la page suivante :
+              Voir les données publiques :
             </Typography>
           </Grid>
           <Grid item>
-            <Button component={Link} to="/add" sx={{ ml: '18px', mt: '4px' }}>
+            <Button component={Link} to="/data" sx={{ ml: '18px', mt: '4px' }}>
               Cliquez ici
             </Button>
           </Grid>

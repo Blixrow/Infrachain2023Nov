@@ -15,6 +15,7 @@ import { TaquitoProvider } from './contexts/Taquito';
 import './App.css';
 import ListeFonds from './routes/ListeFonds';
 import DetailsPage from './routes/DetailsPage';
+import Data from './routes/Data';
 
 
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/Details",
     element: <DetailsPage selectedTuple={["", "", "", "", ""]} />,
+  },
+  {
+    path: "/data",
+    element: <Data />,
   },
 ]);
 

@@ -23,7 +23,7 @@ export const Pick = () => {
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Go to the next page :</Typography>
         </Grid2>
         <Grid2>
-          <Button component={Link} to="add" sx={{ ml: '18px', mt : '4px' }}>Click Here</Button>
+          <Button component={Link} to="../liste" sx={{ ml: '18px', mt : '4px' }}>Click Here</Button>
         </Grid2>
       </Grid2>
     </Grid2>
