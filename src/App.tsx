@@ -13,6 +13,9 @@ import { SettingsProvider, Theme, useTheme } from './contexts/Settings';
 import { TaquitoProvider } from './contexts/Taquito';
 
 import './App.css';
+import ListeFonds from './routes/ListeFonds';
+import DetailsPage from './routes/DetailsPage';
+
 
 const router = createBrowserRouter([
   {
@@ -22,6 +25,14 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <ErrorPage />,
+  },
+  {
+    path: "/Liste",
+    element: <ListeFonds />,
+  },
+  {
+    path: "/Details",
+    element: <DetailsPage selectedTuple={["", "", "", "", ""]} />,
   },
 ]);
 
