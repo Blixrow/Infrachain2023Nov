@@ -1,0 +1,288 @@
+archetype esg_main(owner : address) with metadata ""
+
+/* Pausable ------------------------------------------------------------------------ */
+variable paused : bool = false
+
+entry pause() {
+  no transfer
+  called by owner
+  require {
+    not_paused: not paused otherwise CONTRACT_PAUSED
+  }
+  effect {
+    paused := true
+  }
+}
+
+entry unpause() {
+  no transfer
+  called by owner
+  require {
+    is_paused: paused otherwise CONTRACT_NOT_PAUSED
+  }
+  effect {
+    paused := false
+  }
+}
+
+/* OWNERSHIP TRANSFER ------------------------------------------------------- */
+entry declare_ownership(candidate : address) {
+    no transfer
+    called by owner
+    effect {
+        owner := candidate;
+    }
+}
+
+entry declare_admin(candidate : address) {
+    no transfer
+    called by owner
+    effect {
+        admin := candidate;
+    }
+}
+
+/* TOKEN MANAGEMENT -------------------------------------------------------- */
+variable token_contract : address = KT1JExcLHzN24dyR6cim7CKQHJDbW3CX2oVg
+
+entry update_token_contract(new_address : address) {
+  no transfer
+  called by owner
+  require { tc_r1 : not paused otherwise CONTRACT_PAUSED }
+  effect {
+    token_contract := new_address
+  }
+}
+
+/* METADATA ---------------------------------------------------------------- */
+entry set_metadata(k: string, d : option<bytes>) {
+  no transfer
+  called by owner
+  require { md_r1 : not paused otherwise CONTRACT_PAUSED }
+  effect {
+    metadata.update(k, d)
+  }
+}
+
+/* ERRORS ----------------------------------------------------------------- */
+constant CONTRACT_PAUSED          : string = "CONTRACT_PAUSED"
+constant CONTRACT_NOT_PAUSED      : string = "CONTRACT_NOT_PAUSED"
+constant WRONG_MAP_TYPE           : string = "WRONG_MAP_TYPE"
+constant FUND_UNDEFINED           : string = "FUND_UNDEFINED"
+constant SUBFUND_UNDEFINED        : string = "SUBFUND_UNDEFINED"
+constant FUND_EXISTS              : string = "FUND_EXISTS"
+constant SUBFUND_EXISTS           : string = "SUBFUND_EXISTS"
+constant OWNER_UNDEFINED          : string = "OWNER_UNDEFINED"
+constant TOKEN_UNDEFINED          : string = "TOKEN_UNDEFINED"
+
+/* EVENTS ----------------------------------------------------------------- */
+event Token_Created {
+  e1_token_id  : nat
+}
+
+event Token_Updated {
+  e2_token_id  : nat
+}
+
+event Token_Deleted {
+  e3_token_id  : nat
+}
+
+/* STORAGE ---------------------------------------------------------------- */
+variable current_token_id : nat = 0
+variable admin : address = owner
+
+asset ledger identified by l_owner to big_map {
+  l_owner     : address;
+  l_funds     : set<nat>;
+  l_reports   : set<nat>
+}
+
+asset funds identified by f_id f_owner to big_map{
+  f_id    : nat;
+  f_owner : address;
+  f_name  : string;
+  f_subs   : set<nat>
+}
+
+asset sub_funds identified by sf_id sf_fund sf_owner to big_map{
+  sf_id   : nat;
+  sf_fund : nat;
+  sf_owner: address;
+  sf_name : string;
+  sf_country  : string;
+  sf_currency   : string;
+  sf_sector   : string;
+  sf_nav  : nat
+}
+
+record scores {
+  country_score   : nat;
+  currency_score  : nat;
+  sector_score    : nat
+}
+
+asset reports to big_map {
+  token_id  : nat;
+  t_owner   : address;
+  t_scores  : scores;
+  r_data    : string;
+  r_files   : string
+}
+
+asset country_map to big_map to big_map{
+  country     : string;
+  c_risk      : bool
+}
+
+asset currency_map to big_map to big_map{
+  currency    : string;
+  d_risk      : bool
+}
+
+asset sector_map to big_map{
+  sector      : string;
+  s_risk      : bool
+}
+
+/* MAPPING MANAGEMENT ----------------------------------------------------- */
+entry update_mapping (typ : string, name : string, risk : bool) {
+  require { rq1 : not paused otherwise CONTRACT_PAUSED }
+  effect {
+    if typ = "sector" then
+      sector_map.add_update(name,{s_risk = risk})
+    else
+      if typ = "country" then
+        country_map.add_update(name,{c_risk = risk})
+      else
+        if typ = "currency" then
+          currency_map.add_update(name,{d_risk = risk})
+        else
+          fail(WRONG_MAP_TYPE)
+  }
+}
+
+/* FUND MANAGEMENT -------------------------------------------------------- */
+entry create_fund (fund_id : nat, name : string) {
+  require { 
+    rq2 : not paused otherwise CONTRACT_PAUSED;
+  }
+  effect {
+    if not ledger.contains(caller) then ledger.add({l_owner = caller; l_funds = []; l_reports = []});
+    if ledger[caller].l_funds.contains(fund_id) then fail (FUND_EXISTS);
+    ledger[caller].l_funds.add(fund_id);
+    funds.add({f_id = fund_id; f_owner = caller; f_name = name; f_subs = []})
+  }
+}
+
+entry update_fund (fund_id : nat, name : string) {
+  require { 
+    rq3 : not paused otherwise CONTRACT_PAUSED;
+    o1  : ledger.contains(caller) otherwise OWNER_UNDEFINED;
+    f1  : ledger[caller].l_funds.contains(fund_id) and funds.contains((fund_id,caller)) otherwise FUND_UNDEFINED
+  }
+  effect {
+    funds.update((fund_id,caller), {f_name = name})
+  }
+}
+
+entry delete_fund (fund_id : nat) {
+  require { 
+    rq4 : not paused otherwise CONTRACT_PAUSED;
+    o2  : ledger.contains(caller) otherwise OWNER_UNDEFINED;
+    f2  : ledger[caller].l_funds.contains(fund_id) and funds.contains((fund_id,caller)) otherwise FUND_UNDEFINED
+  }
+  effect {
+    ledger[caller].l_funds.remove(fund_id);
+    funds.remove((fund_id,caller))
+  }
+}
+
+entry create_sub_fund (fund_id : nat, sub_fund_id : nat, name : string, scountry : string, scurrency : string, ssector : string, nav : nat) {
+  require { 
+    rq5 : not paused otherwise CONTRACT_PAUSED;
+    o3  : ledger.contains(caller) otherwise OWNER_UNDEFINED;
+    f3  : ledger[caller].l_funds.contains(fund_id) and funds.contains((fund_id,caller)) otherwise FUND_UNDEFINED;
+    es1 : not funds[(fund_id,caller)].f_subs.contains(sub_fund_id) and not sub_funds.contains((sub_fund_id,fund_id,caller)) otherwise SUBFUND_EXISTS
+  }
+  effect {
+    funds[(fund_id,caller)].f_subs.add(sub_fund_id);
+    sub_funds.add({sf_id = sub_fund_id; sf_fund = fund_id; sf_owner = caller; sf_name = name; sf_country = scountry; sf_currency = scurrency; sf_sector = ssector; sf_nav = nav});
+  }
+}
+
+entry update_sub_fund (fund_id : nat, sub_fund_id : nat, name : string, scountry : string, scurrency : string, ssector : string, nav : nat) {
+  require { 
+    rq6 : not paused otherwise CONTRACT_PAUSED;
+    o4  : ledger.contains(caller) otherwise OWNER_UNDEFINED;
+    f4  : ledger[caller].l_funds.contains(fund_id) otherwise FUND_UNDEFINED;
+    s1  : sub_funds.contains((sub_fund_id,fund_id,caller)) otherwise SUBFUND_UNDEFINED
+  }
+  effect {
+    sub_funds.update((sub_fund_id,fund_id,caller), {sf_name = name; sf_country = scountry; sf_currency = scurrency; sf_sector = ssector; sf_nav = nav})
+  }
+}
+
+entry delete_sub_fund (fund_id : nat, sub_fund_id : nat) {
+  require { 
+    rq7 : not paused otherwise CONTRACT_PAUSED;
+    o5  : ledger.contains(caller) otherwise OWNER_UNDEFINED;
+    f5  : ledger[caller].l_funds.contains(fund_id) otherwise FUND_UNDEFINED;
+    s2  : sub_funds.contains((sub_fund_id,fund_id,caller)) otherwise SUBFUND_UNDEFINED
+  }
+  effect {
+    funds[(fund_id,caller)].f_subs.remove(sub_fund_id);
+    sub_funds.remove((sub_fund_id,fund_id,caller))
+  }
+}
+
+/* REPORT MANAGEMENT ------------------------------------------------------ */
+record transfer_param {
+  tow : address;
+  tid : nat;
+  tname : string;
+  ttimestamp : string;
+  d_score : string;
+  c_score : string;
+  s_score : string
+} as ((%tow, %tid, %name, %timestamp, %c_score, %d_score, %s_score))
+
+entry score (fund_id : nat, time : string, data_link : string, files_link : string) {
+  require { 
+    rq8 : not paused otherwise CONTRACT_PAUSED;
+    o6  : ledger.contains(caller) otherwise OWNER_UNDEFINED;
+    f6  : ledger[caller].l_funds.contains(fund_id) otherwise FUND_UNDEFINED;
+  }
+  effect {
+    var sec_score = 0;
+    var cur_score = 0;
+    var cou_score = 0;
+    for sub_fund_id in funds[(fund_id,caller)].f_subs do
+      var sub ?= sub_funds[(sub_fund_id,fund_id,caller)];
+      if currency_map.contains(sub.sf_currency) and currency_map[sub.sf_currency].d_risk = true then cur_score += sub.sf_nav;
+      if country_map.contains(sub.sf_country) and country_map[sub.sf_country].c_risk = true then cou_score += sub.sf_nav;
+      if sector_map.contains(sub.sf_sector) and sector_map[sub.sf_sector].s_risk = true then sec_score += sub.sf_nav;
+    done;
+    transfer 0tz to token_contract call %mint<(address * nat * string * string * string * string * string)>((caller,current_token_id,concat(concat(nat_to_string(current_token_id),"_"),funds[(fund_id,caller)].f_name),time,concat(nat_to_string(cou_score),"%"),concat(nat_to_string(cur_score),"%"),concat(nat_to_string(sec_score),"%")));
+    reports.add({token_id = current_token_id; t_owner = caller; t_scores  = {cou_score;cur_score;sec_score}; r_data = data_link; r_files = files_link});
+    emit<Token_Created>({ current_token_id });
+    current_token_id += 1
+  }
+}
+
+entry update_token (tok_id : nat, oper : bool) {
+  called by admin
+  require { 
+    rq9 : not paused otherwise CONTRACT_PAUSED;
+    t1  : reports.contains(tok_id) otherwise TOKEN_UNDEFINED;
+  }
+  effect {
+    if oper then begin
+      transfer 0tz to token_contract call %set_token_metadata<nat>(tok_id);
+      emit<Token_Created>({ tok_id });
+    end else begin
+      transfer 0tz to token_contract call %burn<nat>(tok_id);
+      emit<Token_Deleted>({ tok_id });
+    end
+  }
+}
