@@ -7,8 +7,8 @@ https://tezos.com/developers/tutorials/building-dapp/
 - Type in order:\
 `npm install @taquito/taquito`\
 `npm install @taquito/beacon-wallet @airgap/beacon-sdk`\
-`npm install @completium/dapp-ts @completium/archetype-ts-types`\
-`npm install constate`
+`npm install @completium/dapp-ts @completium/archetype-ts-types --legacy-peer-deps`\
+`npm install constate --legacy-peer-deps`
 - Start project with `npm start`
 
 # Getting Started with Create React App
