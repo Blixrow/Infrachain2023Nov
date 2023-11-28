@@ -16,15 +16,6 @@ import addIcon from '../assets/icons/plus.svg'
 
 
 
-
-
-
-const subFondsData = [
-  { id: '1', name: 'SubFond 1', date: '2023-12-02', currency: 'EUR' },
-  { id: '2', name: 'SubFond 2', date: '2023-12-03', currency: 'USD' },
-  // Ajoutez autant d'éléments que nécessaire
-];
-
 const items: [string, string, string, string, string][] = [
   ["Item 1a", "1", "Statut 1", "NFT 1", "2023-11-27"],
   ["Item 2a", "2", "Statut 2", "NFT 2", "2023-11-28"],
@@ -34,6 +25,7 @@ const items: [string, string, string, string, string][] = [
 ];
 
 const history = createBrowserHistory();
+
 
 export const DetailsPage = () => {
 
@@ -67,9 +59,9 @@ export const DetailsPage = () => {
 
   return (
 
-    <Container>
+    <div className='total-boxe_sf'>
    
-    <div className="identite_fond">
+   <div className="identite_fond">
       <div className="identite_fond_texte">
       <Typography variant="h4">{tuple[0]}</Typography>
       <Typography variant="body1">Nom: {tuple[0]}</Typography>
@@ -80,20 +72,15 @@ export const DetailsPage = () => {
       </div>
     </div>
 
+    <div className='table_sf'>
 
-      <div className="status-boxes">
-        <div className="box green-box">Validated</div>
-        <div className="box orange-box">Reported</div>
-        <div className="box red-box">To Be Reported</div>
-      </div>
-
-      <Grid container direction="column" justifyContent="center">
+    <Grid container direction="column" justifyContent="center">
         
 
         {/* Titre de la liste */}
         <Grid item xs={12} sx={{mt:'20px'}}>
           <Typography variant="h2" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
-            Liste des fonds
+            Liste des sous-fonds
           </Typography>
         </Grid>
 
@@ -160,7 +147,7 @@ export const DetailsPage = () => {
             </tbody>
           </table>
         </Grid>
-
+        
         
 
         {/* Bouton Voir les données publiques */}
@@ -177,9 +164,10 @@ export const DetailsPage = () => {
           </Grid>
         </Grid>
       </Grid>
+      </div>
       {/* Conditionnellement rendre DetailsPage */}
       {/*selectedTuple && <DetailsPage {...{ selectedTuple }} />*/}
-    </Container>
+    </div>
   );
 };
 
