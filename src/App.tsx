@@ -8,12 +8,14 @@ import { TopBar } from './components/TopBar'
 import { ErrorPage } from './routes/ErrorPage'
 import { Pick } from './routes/PickPage'
 import { Affich } from './routes/Affichage'
+import { Ipfs } from './routes/ipfs';
 import { BeaconProvider } from './contexts/Beacon'
 import { ContractProvider } from './contexts/Contract';
 import { SettingsProvider, Theme, useTheme } from './contexts/Settings';
 import { TaquitoProvider } from './contexts/Taquito';
 
 import './App.css';
+
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/affich",
     element: <Affich />,
+  },
+  {
+    path: "/ipfs",
+    element: <Ipfs />,
   },
   {
     path: "*",

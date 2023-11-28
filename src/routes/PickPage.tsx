@@ -149,8 +149,12 @@ export const Pick = () => {
           <Button onClick={() => audit(0, false)} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
-          <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Other Page :</Typography>
+          <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Affichage :</Typography>
           <Button component={Link} to="../affich" sx={{ mt : '7px'}}>Click Here</Button>
+        </Grid2>
+        <Grid2 container direction="row" justifyContent="center" alignItems="center">
+          <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>IPFS :</Typography>
+          <Button component={Link} to="../ipfs" sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
       </Grid2>
   </Container>
