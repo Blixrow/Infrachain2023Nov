@@ -7,6 +7,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { TopBar } from './components/TopBar'
 import { ErrorPage } from './routes/ErrorPage'
 import { Pick } from './routes/PickPage'
+import { Affich } from './routes/Affichage'
 import { BeaconProvider } from './contexts/Beacon'
 import { ContractProvider } from './contexts/Contract';
 import { SettingsProvider, Theme, useTheme } from './contexts/Settings';
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/main",
     element: <Pick />,
+  },
+  {
+    path: "/affich",
+    element: <Affich />,
   },
   {
     path: "*",

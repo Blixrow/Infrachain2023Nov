@@ -7,7 +7,6 @@ import { useContract } from "../contexts/Contract";
 import { Nat } from '@completium/archetype-ts-types';
 import { useConnect, useIsConnected, useWalletAddress } from "../contexts/Beacon";
 import React from 'react';
-import { validateLocaleAndSetLanguage } from 'typescript';
 
 export const Pick = () => {
   const connect = useConnect()
@@ -148,6 +147,10 @@ export const Pick = () => {
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Cancel NFT :</Typography>
           <Button onClick={() => audit(2, false)} sx={{ mt : '7px'}}>Click Here</Button>
+        </Grid2>
+        <Grid2 container direction="row" justifyContent="center" alignItems="center">
+          <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Other Page :</Typography>
+          <Button component={Link} to="../affich" sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
       </Grid2>
   </Container>
