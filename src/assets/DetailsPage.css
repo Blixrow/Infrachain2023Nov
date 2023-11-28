@@ -3,8 +3,8 @@
      border-radius: 10px; /* Coins arrondis */
      padding: 30px; /* Espacement interne */
      max-width: 300px; /* Largeur maximale */
-     margin-top: 30%;
-     margin-left: 1%;
+     /*margin-top: 30%;*/
+     margin-left: 10%;
    }
 
    /* Ajoutez cette classe pour centrer horizontalement le contenu */
@@ -15,4 +15,28 @@
 
 .total-boxe_sf{
   background-color: rgba(213, 213,213, 0.9);
+}
+
+.popup-Button{
+  color: aliceblue;
+  margin-left: 30%;
+}
+
+.inline-div {
+  display: inline-flex; /* or use 'display: inline;' */
+  background-color: lightblue;
+
+  align-items: center;
+  /*justify-content: center;*/
+  width: 100%;
+  margin-top: 10%;
+}
+
+.color-box{
+  border: 10px solid #000000; /* Bordure grise /
+  border-radius: 10px; / Coins arrondis /
+  padding: 30px; / Espacement interne /
+  max-width: 300px; / Largeur maximale */
+  margin-left: 30%;
+  display: flex;
 }
