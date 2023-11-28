@@ -217,6 +217,7 @@ export const DetailsPage = () => {
         </table>
       </div>
       </Grid2>
+>>>>>>> 152ec9ffc4b46a8b0143258461083e7f0d99dbc3
     </div>
   );
 };

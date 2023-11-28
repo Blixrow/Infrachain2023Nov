@@ -45,7 +45,7 @@ const CurrencyPage: React.FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '170px' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '170px', backgroundColor: 'rgba(213, 213, 213, 0.9)'}}>
       {/* Liste des devises */}
       <div style={{ margin: '10px' }}>
         <h2>Devises</h2>
