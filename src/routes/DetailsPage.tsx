@@ -32,6 +32,11 @@ export const DetailsPage = () => {
       <Typography variant="body1">Statut: {id}</Typography>
       <Typography variant="body1">NFT: {id}</Typography>
       <Typography variant="body1">Date: {id}</Typography>
+
+      {/* Progress Bar */}
+      <div className="progress-bar">
+        <div className="progress" id="progress"></div>
+      </div>
     </div>
   );
 };
