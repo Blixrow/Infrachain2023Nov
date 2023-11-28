@@ -51,7 +51,7 @@ const ListeFonds: React.FC = (): JSX.Element => {
       <div className="status-boxes">
         <div className="box green-box">Validated</div>
         <div className="box orange-box">Reported</div>
-        <div className="box red-box">To Do</div>
+        <div className="box red-box">To Be Reported</div>
       </div>
 
       <Grid container direction="column" justifyContent="center">

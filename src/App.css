@@ -1,1 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+.App {
+    background-image: url('/src/assets/images/background.jpg');
+    background-size: cover; /* Adjust as needed */
+    background-repeat: no-repeat; /* Optional: Prevent image repetition */
+    background-position: center center; /* Optional: Center the background image */
+    /* Additional styles if needed */
+  }
+
+  .Background {
+    background-image: url('/src/assets/images/background.jpg');
+    background-size: cover; /* Adjust as needed */
+    background-repeat: no-repeat; /* Optional: Prevent image repetition */
+    background-position: center center; /* Optional: Center the background image */
+    /* Additional styles if needed */
+  }
