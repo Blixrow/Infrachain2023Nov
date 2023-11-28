@@ -19,6 +19,7 @@ export const Affich = () => {
   const [status, setstatus] = React.useState("")
   const [subfundsID, setsubfundsID] = React.useState("")
   const [subfunds, setsubfunds] = React.useState("")
+  const [reportsID, setreportsID] = React.useState("")
 
   const contract = useContract() 
   const wallet_address = useWalletAddress()
@@ -65,16 +66,58 @@ export const Affich = () => {
       await Promise.all(ids.map(async value => {
         const subfund = await contract.get_sub_funds_value(new sub_funds_key(new Nat(parseInt(value)),new Nat(parseInt(fundsId)),new Address(wallet_address)))
         if (subfund) {
-          subfunds.push(value+"/"+subfund.sf_name+"/"+subfund.sf_country+"/"+subfund.sf_currency+"/"+subfund.sf_sector+"/"+subfund.sf_nav)
+          var country_risk = await contract.get_country_map_value(subfund.sf_country)
+          var currency_risk = await contract.get_currency_map_value(subfund.sf_currency)
+          var sector_risk = await contract.get_sector_map_value(subfund.sf_sector)
+          if (!country_risk) { country_risk = false}
+          if (!currency_risk) { currency_risk = false}
+          if (!sector_risk) { sector_risk = false}
+          subfunds.push(value+"/"+subfund.sf_name+"/"+subfund.sf_country+"/"+country_risk+"/"+subfund.sf_currency+"/"+currency_risk+"/"+subfund.sf_sector+"/"+sector_risk+"/"+subfund.sf_nav)
         }
       }));
       setsubfunds(subfunds.toString())
     }
   }
 
+  async function getReportsIDs() {
+    if (wallet_address) {
+      const ledg = await contract.get_ledger_value(new Address(wallet_address))
+      if (ledg) {
+        var reports = ledg.l_reports
+        if (reports) {
+          setreportsID(reports.toString())
+          return
+        }
+      }
+    }
+  }
+
+  async function getStatus() {
+    if (wallet_address) {
+      const [fundsids] = await Promise.all([getReportsIDs()]);
+      const ids = reportsID.split(",")
+      var reports : String[] = []
+      var stat : String[] = []
+      console.log(ids[0])
+      await Promise.all(ids.map(async (value,index,array) => {
+        console.log(index)
+        const report = await contract.get_reports_value(new Nat(parseInt(index.toString())))
+        if (report) {
+          if (report.t_validated){
+            stat.push(report.t_fund_id+"/Validated")
+          } else {
+            stat.push(report.t_fund_id+"/Calculated")
+          }
+        }
+      }));
+      setstatus(stat.toString())
+    }
+  }
+
   function test() {
-    getFunds()
-    getSubFunds("1")
+    //getFunds()
+    //getSubFunds("1")
+    //getStatus()
   }
   
   return <Container>
@@ -89,6 +132,7 @@ export const Affich = () => {
         </Grid2>
         <Typography variant="h5">{funds}</Typography>
         <Typography variant="h5">{subfunds}</Typography>
+        <Typography variant="h5">{status}</Typography>
       </Grid2>
   </Container>
 }
