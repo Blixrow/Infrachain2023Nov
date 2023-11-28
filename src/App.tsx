@@ -28,6 +28,7 @@ const backgroundStyle = {
   backgroundPosition: 'center center',
   backgroundSize: 'cover',
   height: '100%',
+  backgroundColor: 'rgba(255, 255, 255, 1)', // Adjust the alpha value for transparency (not working)
 };
 
 const router = createBrowserRouter([

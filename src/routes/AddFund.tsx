@@ -32,7 +32,7 @@ const AddFund: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Container style={{  padding: '0px 0px 0px 0px', backgroundColor: 'rgba(213, 213, 213, 0.9)' }}> //margin: '0px 0px 0px 0px',
       <Grid container direction="column" justifyContent="center" alignItems="center">
         <Grid item xs={12}>
           <Typography variant="h2" sx={{ mt: '140px', mb: '60px', fontFamily: 'Dancing Script', justifyContent: 'center' }}>
@@ -41,7 +41,7 @@ const AddFund: React.FC = () => {
         </Grid>
         <Grid item xs={12}>
           <form>
-            <Grid container direction="column" spacing={2}>
+            <Grid container spacing={2} alignItems="left" direction='column'>
               <Grid item>
                 <label>Nom:</label>
                 <input type="text" value={newFund[0]} onChange={(e) => handleInputChange(0, e.target.value)} />
@@ -52,11 +52,11 @@ const AddFund: React.FC = () => {
               </Grid>
               <Grid item>
                 <label>Statut:</label>
-                <input type="text" value={newFund[2]} onChange={(e) => handleInputChange(2, e.target.value)} />
+                <input onChange={(e) => handleInputChange(2, e.target.value)} />
               </Grid>
               <Grid item>
                 <label>NFT:</label>
-                <input type="text" value={newFund[3]} onChange={(e) => handleInputChange(3, e.target.value)} />
+                <input onChange={(e) => handleInputChange(3, e.target.value)} />
               </Grid>
               <Grid item>
                 <label>Date:</label>
