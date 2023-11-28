@@ -7,6 +7,7 @@ import { useContract } from "../contexts/Contract";
 import { Nat } from '@completium/archetype-ts-types';
 import { useConnect, useIsConnected, useWalletAddress } from "../contexts/Beacon";
 import React from 'react';
+import { validateLocaleAndSetLanguage } from 'typescript';
 
 export const Pick = () => {
   const connect = useConnect()
@@ -74,8 +75,44 @@ export const Pick = () => {
       setLoading(false)
     }
   }
+  const deleteSubFund = async (fundid : number,subfundid : number) => {
+    setLoading(true)
+    try {
+      if (!is_connected()) {
+        await connect()
+      }
+      await contract.delete_sub_fund(new Nat(fundid),new Nat(subfundid),{})
+      setLoading(false)
+    } catch (e) {
+      setLoading(false)
+    }
+  }
+  const score = async (fundid : number, time : string, data : string, files : string) => {
+    setLoading(true)
+    try {
+      if (!is_connected()) {
+        await connect()
+      }
+      await contract.score(new Nat(fundid), time, data, files,{})
+      setLoading(false)
+    } catch (e) {
+      setLoading(false)
+    }
+  }
+  const audit = async (tokenid : number, validate : boolean) => {
+    setLoading(true)
+    try {
+      if (!is_connected()) {
+        await connect()
+      }
+      await contract.update_token(new Nat(tokenid), validate,{})
+      setLoading(false)
+    } catch (e) {
+      setLoading(false)
+    }
+  }
   return <Container>
-      <Grid2 container direction="row" justifyContent="center" alignItems="center" sx={{ mt : '140px', mb: '18px' }}>
+      <Grid2 container direction="row" justifyContent="center" alignItems="center" sx={{ mt : '120px', mb: '18px' }}>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Create Fund :</Typography>
           <Button onClick={() => createFund(9,"Test")} sx={{ mt : '7px'}}>Click Here</Button>
@@ -95,6 +132,22 @@ export const Pick = () => {
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Update Sub_Fund :</Typography>
           <Button onClick={() => updateSubFund(9, 1, "Other SubFund Test", "UK", "LIVRE", "Manufacture", 62)} sx={{ mt : '7px'}}>Click Here</Button>
+        </Grid2>
+        <Grid2 container direction="row" justifyContent="center" alignItems="center">
+          <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Delete Sub_Fund :</Typography>
+          <Button onClick={() => deleteSubFund(9, 1)} sx={{ mt : '7px'}}>Click Here</Button>
+        </Grid2>
+        <Grid2 container direction="row" justifyContent="center" alignItems="center">
+          <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Calculate Score :</Typography>
+          <Button onClick={() => score(9, "28/11/2023 - 14h10", "link 1", "link 2")} sx={{ mt : '7px'}}>Click Here</Button>
+        </Grid2>
+        <Grid2 container direction="row" justifyContent="center" alignItems="center">
+          <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Validate NFT :</Typography>
+          <Button onClick={() => audit(1, true)} sx={{ mt : '7px'}}>Click Here</Button>
+        </Grid2>
+        <Grid2 container direction="row" justifyContent="center" alignItems="center">
+          <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Cancel NFT :</Typography>
+          <Button onClick={() => audit(2, false)} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
       </Grid2>
   </Container>

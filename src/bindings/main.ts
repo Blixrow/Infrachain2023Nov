@@ -304,6 +304,9 @@ const unpause_arg_to_mich = (): att.Micheline => {
 const declare_ownership_arg_to_mich = (candidate: att.Address): att.Micheline => {
     return candidate.to_mich();
 }
+const declare_admin_arg_to_mich = (candidate: att.Address): att.Micheline => {
+    return candidate.to_mich();
+}
 const update_token_contract_arg_to_mich = (new_address: att.Address): att.Micheline => {
     return new_address.to_mich();
 }
@@ -418,6 +421,12 @@ export class Esg_main {
         }
         throw new Error("Contract not initialised");
     }
+    async declare_admin(candidate: att.Address, params: Partial<ex.Parameters>): Promise<att.CallResult> {
+        if (this.address != undefined) {
+            return await ex.call(this.address, "declare_admin", declare_admin_arg_to_mich(candidate), params);
+        }
+        throw new Error("Contract not initialised");
+    }
     async update_token_contract(new_address: att.Address, params: Partial<ex.Parameters>): Promise<att.CallResult> {
         if (this.address != undefined) {
             return await ex.call(this.address, "update_token_contract", update_token_contract_arg_to_mich(new_address), params);
@@ -499,6 +508,12 @@ export class Esg_main {
     async get_declare_ownership_param(candidate: att.Address, params: Partial<ex.Parameters>): Promise<att.CallParameter> {
         if (this.address != undefined) {
             return await ex.get_call_param(this.address, "declare_ownership", declare_ownership_arg_to_mich(candidate), params);
+        }
+        throw new Error("Contract not initialised");
+    }
+    async get_declare_admin_param(candidate: att.Address, params: Partial<ex.Parameters>): Promise<att.CallParameter> {
+        if (this.address != undefined) {
+            return await ex.get_call_param(this.address, "declare_admin", declare_admin_arg_to_mich(candidate), params);
         }
         throw new Error("Contract not initialised");
     }
@@ -596,10 +611,17 @@ export class Esg_main {
         }
         throw new Error("Contract not initialised");
     }
+    async get_admin(): Promise<att.Address> {
+        if (this.address != undefined) {
+            const storage = await ex.get_raw_storage(this.address);
+            return att.Address.from_mich((storage as att.Mpair).args[4]);
+        }
+        throw new Error("Contract not initialised");
+    }
     async get_ledger_value(key: att.Address): Promise<ledger_value | undefined> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[4]).toString()), key.to_mich(), ledger_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[5]).toString()), key.to_mich(), ledger_key_mich_type);
             if (data != undefined) {
                 return ledger_value.from_mich(data);
             }
@@ -612,7 +634,7 @@ export class Esg_main {
     async has_ledger_value(key: att.Address): Promise<boolean> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[4]).toString()), key.to_mich(), ledger_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[5]).toString()), key.to_mich(), ledger_key_mich_type);
             if (data != undefined) {
                 return true;
             }
@@ -625,7 +647,7 @@ export class Esg_main {
     async get_funds_value(key: funds_key): Promise<funds_value | undefined> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[5]).toString()), key.to_mich(), funds_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[6]).toString()), key.to_mich(), funds_key_mich_type);
             if (data != undefined) {
                 return funds_value.from_mich(data);
             }
@@ -638,7 +660,7 @@ export class Esg_main {
     async has_funds_value(key: funds_key): Promise<boolean> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[5]).toString()), key.to_mich(), funds_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[6]).toString()), key.to_mich(), funds_key_mich_type);
             if (data != undefined) {
                 return true;
             }
@@ -651,7 +673,7 @@ export class Esg_main {
     async get_sub_funds_value(key: sub_funds_key): Promise<sub_funds_value | undefined> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[6]).toString()), key.to_mich(), sub_funds_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[7]).toString()), key.to_mich(), sub_funds_key_mich_type);
             if (data != undefined) {
                 return sub_funds_value.from_mich(data);
             }
@@ -664,7 +686,7 @@ export class Esg_main {
     async has_sub_funds_value(key: sub_funds_key): Promise<boolean> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[6]).toString()), key.to_mich(), sub_funds_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[7]).toString()), key.to_mich(), sub_funds_key_mich_type);
             if (data != undefined) {
                 return true;
             }
@@ -677,7 +699,7 @@ export class Esg_main {
     async get_reports_value(key: att.Nat): Promise<reports_value | undefined> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[7]).toString()), key.to_mich(), reports_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[8]).toString()), key.to_mich(), reports_key_mich_type);
             if (data != undefined) {
                 return reports_value.from_mich(data);
             }
@@ -690,7 +712,7 @@ export class Esg_main {
     async has_reports_value(key: att.Nat): Promise<boolean> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[7]).toString()), key.to_mich(), reports_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[8]).toString()), key.to_mich(), reports_key_mich_type);
             if (data != undefined) {
                 return true;
             }
@@ -703,7 +725,7 @@ export class Esg_main {
     async get_country_map_value(key: string): Promise<boolean | undefined> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[8]).toString()), att.string_to_mich(key), country_map_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[9]).toString()), att.string_to_mich(key), country_map_key_mich_type);
             if (data != undefined) {
                 return att.mich_to_bool(data);
             }
@@ -716,7 +738,7 @@ export class Esg_main {
     async has_country_map_value(key: string): Promise<boolean> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[8]).toString()), att.string_to_mich(key), country_map_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[9]).toString()), att.string_to_mich(key), country_map_key_mich_type);
             if (data != undefined) {
                 return true;
             }
@@ -729,7 +751,7 @@ export class Esg_main {
     async get_currency_map_value(key: string): Promise<boolean | undefined> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[9]).toString()), att.string_to_mich(key), currency_map_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[10]).toString()), att.string_to_mich(key), currency_map_key_mich_type);
             if (data != undefined) {
                 return att.mich_to_bool(data);
             }
@@ -742,7 +764,7 @@ export class Esg_main {
     async has_currency_map_value(key: string): Promise<boolean> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[9]).toString()), att.string_to_mich(key), currency_map_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[10]).toString()), att.string_to_mich(key), currency_map_key_mich_type);
             if (data != undefined) {
                 return true;
             }
@@ -755,7 +777,7 @@ export class Esg_main {
     async get_sector_map_value(key: string): Promise<boolean | undefined> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[10]).toString()), att.string_to_mich(key), sector_map_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[11]).toString()), att.string_to_mich(key), sector_map_key_mich_type);
             if (data != undefined) {
                 return att.mich_to_bool(data);
             }
@@ -768,7 +790,7 @@ export class Esg_main {
     async has_sector_map_value(key: string): Promise<boolean> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[10]).toString()), att.string_to_mich(key), sector_map_key_mich_type);
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[11]).toString()), att.string_to_mich(key), sector_map_key_mich_type);
             if (data != undefined) {
                 return true;
             }
@@ -781,7 +803,7 @@ export class Esg_main {
     async get_metadata_value(key: string): Promise<att.Bytes | undefined> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[11]).toString()), att.string_to_mich(key), att.prim_annot_to_mich_type("string", []));
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[12]).toString()), att.string_to_mich(key), att.prim_annot_to_mich_type("string", []));
             if (data != undefined) {
                 return att.Bytes.from_mich(data);
             }
@@ -794,7 +816,7 @@ export class Esg_main {
     async has_metadata_value(key: string): Promise<boolean> {
         if (this.address != undefined) {
             const storage = await ex.get_raw_storage(this.address);
-            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[11]).toString()), att.string_to_mich(key), att.prim_annot_to_mich_type("string", []));
+            const data = await ex.get_big_map_value(BigInt(att.Int.from_mich((storage as att.Mpair).args[12]).toString()), att.string_to_mich(key), att.prim_annot_to_mich_type("string", []));
             if (data != undefined) {
                 return true;
             }
@@ -843,6 +865,7 @@ export class Esg_main {
     errors = {
         t1: att.string_to_mich("\"TOKEN_UNDEFINED\""),
         rq9: att.string_to_mich("\"CONTRACT_PAUSED\""),
+        INVALID_CALLER: att.string_to_mich("\"INVALID_CALLER\""),
         OPTION_IS_NONE: att.string_to_mich("\"OPTION_IS_NONE\""),
         f6: att.string_to_mich("\"FUND_UNDEFINED\""),
         o6: att.string_to_mich("\"OWNER_UNDEFINED\""),
@@ -871,7 +894,6 @@ export class Esg_main {
         rq1: att.string_to_mich("\"CONTRACT_PAUSED\""),
         md_r1: att.string_to_mich("\"CONTRACT_PAUSED\""),
         NO_TRANSFER: att.string_to_mich("\"NO_TRANSFER\""),
-        INVALID_CALLER: att.string_to_mich("\"INVALID_CALLER\""),
         tc_r1: att.string_to_mich("\"CONTRACT_PAUSED\""),
         is_paused: att.string_to_mich("\"CONTRACT_NOT_PAUSED\""),
         not_paused: att.string_to_mich("\"CONTRACT_PAUSED\"")
