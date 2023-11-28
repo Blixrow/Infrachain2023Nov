@@ -12,12 +12,23 @@ import { ContractProvider } from './contexts/Contract';
 import { SettingsProvider, Theme, useTheme } from './contexts/Settings';
 import { TaquitoProvider } from './contexts/Taquito';
 
-import './App.css';
 import ListeFonds from './routes/ListeFonds';
 import DetailsPage from './routes/DetailsPage';
 import Data from './routes/Data';
 import AddFund from './routes/AddFund';
 
+import './App.css'
+
+import backgroundImage from './Neom.png';
+
+
+const backgroundStyle = { 
+  backgroundImage: `url(${backgroundImage})`,
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center center',
+  backgroundSize: 'cover',
+  height: '100%',
+};
 
 const router = createBrowserRouter([
   {
@@ -55,12 +66,14 @@ function DApp() {
       mode: theme === Theme.Default && prefersDarkMode ? 'dark' : (theme === Theme.Dark ? 'dark' : 'light'),
     },
   });
+
+
   return (
     <ThemeProvider theme={uiTheme}>
       <TaquitoProvider>
         <BeaconProvider>
           <ContractProvider>
-                  <Paper elevation={0}>
+                  <Paper elevation={0} style={backgroundStyle}>
                     <div style={{ height: '100vh', overflow: 'auto' }}>
                     <TopBar></TopBar>
                     <RouterProvider router={router} />
