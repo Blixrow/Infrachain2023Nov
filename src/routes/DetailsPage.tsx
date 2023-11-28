@@ -192,19 +192,6 @@ export const DetailsPage = () => {
     const tuple = location.state?.tuple || [];
   return (
     <div>
-<<<<<<< HEAD
-      <Typography variant="h4">Informations supplémentaires</Typography>
-      <Typography variant="body1">Nom: {id}</Typography>
-      <Typography variant="body1">ID: {id}</Typography>
-      <Typography variant="body1">Statut: {id}</Typography>
-      <Typography variant="body1">NFT: {id}</Typography>
-      <Typography variant="body1">Date: {id}</Typography>
-
-      {/* Progress Bar */}
-      <div className="progress-bar">
-        <div className="progress" id="progress"></div>
-      </div>
-=======
       <Grid2 container direction="row" justifyContent="center" alignItems="center">
 
       
