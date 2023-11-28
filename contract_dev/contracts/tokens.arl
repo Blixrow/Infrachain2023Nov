@@ -75,6 +75,7 @@ asset token_metadata to big_map {
 }
 
 entry set_token_metadata (tok_id : nat) {
+  no transfer
   called by admin
   require { tmd_r1: not paused otherwise CONTRACT_PAUSED }
   effect {
@@ -200,6 +201,7 @@ function string_to_bytes(s : string) : bytes {
 }
 
 entry mint (tow : address, tid : nat, name : string, timestamp : string, c_score : string, d_score : string, s_score : string) {
+  no transfer
   called by admin
   require { fa2_r5: not paused otherwise CONTRACT_PAUSED }
   effect {

@@ -38,12 +38,12 @@ function DApp() {
       <TaquitoProvider>
         <BeaconProvider>
           <ContractProvider>
-                  <Paper elevation={0}>
-                    <div style={{ height: '100vh', overflow: 'auto' }}>
-                    <TopBar></TopBar>
-                    <RouterProvider router={router} />
-                    </div>
-                  </Paper>
+            <Paper elevation={0}>
+              <div style={{ height: '100vh', overflow: 'auto' }}>
+              <TopBar></TopBar>
+              <RouterProvider router={router} />
+              </div>
+            </Paper>
           </ContractProvider>
         </BeaconProvider>
       </TaquitoProvider>

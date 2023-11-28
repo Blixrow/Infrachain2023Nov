@@ -395,7 +395,7 @@ export class Esg_main {
         throw new Error("Contract not initialised");
     }
     async deploy(owner: att.Address, params: Partial<ex.Parameters>) {
-        const address = (await ex.deploy("contracts/esg_main.arl", {
+        const address = (await ex.deploy("./esg_main.arl", {
             owner: owner.to_mich()
         }, params)).address;
         this.address = address;
