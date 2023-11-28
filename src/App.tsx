@@ -16,6 +16,7 @@ import './App.css';
 import ListeFonds from './routes/ListeFonds';
 import DetailsPage from './routes/DetailsPage';
 import Data from './routes/Data';
+import AddFund from './routes/AddFund';
 
 
 const router = createBrowserRouter([
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/data",
     element: <Data />,
+  },
+  {
+    path: "/addFund",
+    element: <AddFund />,
   },
 ]);
 

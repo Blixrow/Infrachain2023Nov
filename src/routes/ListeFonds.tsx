@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createBrowserHistory } from 'history';
-import DetailsPage from './DetailsPage';
+//import DetailsPage from './DetailsPage';
 import { useNavigate } from 'react-router-dom';
 
 const items: [string, string, string, string, string][] = [
@@ -33,7 +33,7 @@ const ListeFonds: React.FC = (): JSX.Element => {
       <Grid container direction="column" justifyContent="center" alignItems="center">
         <Grid item xs={12}>
           <Typography variant="h2" sx={{ mt: '140px', mb: '60px', fontFamily: 'Dancing Script', justifyContent: 'center' }}>
-            Liste d'éléments
+            Liste des fonds
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -63,6 +63,18 @@ const ListeFonds: React.FC = (): JSX.Element => {
               ))}
             </tbody>
           </table>
+        </Grid>
+        <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
+          <Grid item>
+            <Typography variant="h5" sx={{ fontFamily: 'Dancing Script' }}>
+              Ajouter un fond
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Button component={Link} to="/addFund" sx={{ ml: '18px', mt: '4px' }}>
+              Cliquez ici
+            </Button>
+          </Grid>
         </Grid>
         <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
           <Grid item>
