@@ -125,6 +125,9 @@ record scores {
 asset reports to big_map {
   token_id  : nat;
   t_owner   : address;
+  t_fund_id : nat;
+  t_time    : string;
+  t_validated : bool;
   t_scores  : scores;
   r_data    : string;
   r_files   : string
@@ -264,7 +267,7 @@ entry score (fund_id : nat, time : string, data_link : string, files_link : stri
       if sector_map.contains(sub.sf_sector) and sector_map[sub.sf_sector].s_risk = true then sec_score += sub.sf_nav;
     done;
     transfer 0tz to token_contract call %mint<(address * nat * string * string * string * string * string)>((caller,current_token_id,concat(concat(nat_to_string(current_token_id),"_"),funds[(fund_id,caller)].f_name),time,concat(nat_to_string(cou_score),"%"),concat(nat_to_string(cur_score),"%"),concat(nat_to_string(sec_score),"%")));
-    reports.add({token_id = current_token_id; t_owner = caller; t_scores  = {cou_score;cur_score;sec_score}; r_data = data_link; r_files = files_link});
+    reports.add({token_id = current_token_id; t_owner = caller; t_fund_id = fund_id; t_time = time; t_validated = false; t_scores  = {cou_score;cur_score;sec_score}; r_data = data_link; r_files = files_link});
     emit<Token_Created>({ current_token_id });
     current_token_id += 1
   }
@@ -278,9 +281,11 @@ entry update_token (tok_id : nat, oper : bool) {
   }
   effect {
     if oper then begin
+      reports.update(tok_id, {t_validated = true});
       transfer 0tz to token_contract call %set_token_metadata<nat>(tok_id);
       emit<Token_Created>({ tok_id });
     end else begin
+      reports.remove(tok_id);
       transfer 0tz to token_contract call %burn<nat>(tok_id);
       emit<Token_Deleted>({ tok_id });
     end

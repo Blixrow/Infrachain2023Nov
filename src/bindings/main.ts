@@ -188,18 +188,18 @@ export class sub_funds_value implements att.ArchetypeType {
     }
 }
 export class reports_value implements att.ArchetypeType {
-    constructor(public t_owner: att.Address, public t_scores: scores, public r_data: string, public r_files: string) { }
+    constructor(public t_owner: att.Address, public t_fund_id: att.Nat, public t_time: string, public t_validated: boolean, public t_scores: scores, public r_data: string, public r_files: string) { }
     toString(): string {
         return JSON.stringify(this, null, 2);
     }
     to_mich(): att.Micheline {
-        return att.pair_to_mich([this.t_owner.to_mich(), this.t_scores.to_mich(), att.string_to_mich(this.r_data), att.string_to_mich(this.r_files)]);
+        return att.pair_to_mich([this.t_owner.to_mich(), this.t_fund_id.to_mich(), att.string_to_mich(this.t_time), att.bool_to_mich(this.t_validated), this.t_scores.to_mich(), att.string_to_mich(this.r_data), att.string_to_mich(this.r_files)]);
     }
     equals(v: reports_value): boolean {
         return att.micheline_equals(this.to_mich(), v.to_mich());
     }
     static from_mich(input: att.Micheline): reports_value {
-        return new reports_value(att.Address.from_mich((input as att.Mpair).args[0]), scores.from_mich((input as att.Mpair).args[1]), att.mich_to_string((input as att.Mpair).args[2]), att.mich_to_string((input as att.Mpair).args[3]));
+        return new reports_value(att.Address.from_mich((input as att.Mpair).args[0]), att.Nat.from_mich((input as att.Mpair).args[1]), att.mich_to_string((input as att.Mpair).args[2]), att.mich_to_bool((input as att.Mpair).args[3]), scores.from_mich((input as att.Mpair).args[4]), att.mich_to_string((input as att.Mpair).args[5]), att.mich_to_string((input as att.Mpair).args[6]));
     }
 }
 export const ledger_value_mich_type: att.MichelineType = att.pair_array_to_mich_type([
@@ -219,6 +219,9 @@ export const sub_funds_value_mich_type: att.MichelineType = att.pair_array_to_mi
 ], []);
 export const reports_value_mich_type: att.MichelineType = att.pair_array_to_mich_type([
     att.prim_annot_to_mich_type("address", ["%t_owner"]),
+    att.prim_annot_to_mich_type("nat", ["%t_fund_id"]),
+    att.prim_annot_to_mich_type("string", ["%t_time"]),
+    att.prim_annot_to_mich_type("bool", ["%t_validated"]),
     att.pair_array_to_mich_type([
         att.prim_annot_to_mich_type("nat", ["%country_score"]),
         att.prim_annot_to_mich_type("nat", ["%currency_score"]),
@@ -284,6 +287,9 @@ export const sub_funds_container_mich_type: att.MichelineType = att.pair_annot_t
 ], []), []);
 export const reports_container_mich_type: att.MichelineType = att.pair_annot_to_mich_type("big_map", att.prim_annot_to_mich_type("nat", []), att.pair_array_to_mich_type([
     att.prim_annot_to_mich_type("address", ["%t_owner"]),
+    att.prim_annot_to_mich_type("nat", ["%t_fund_id"]),
+    att.prim_annot_to_mich_type("string", ["%t_time"]),
+    att.prim_annot_to_mich_type("bool", ["%t_validated"]),
     att.pair_array_to_mich_type([
         att.prim_annot_to_mich_type("nat", ["%country_score"]),
         att.prim_annot_to_mich_type("nat", ["%currency_score"]),

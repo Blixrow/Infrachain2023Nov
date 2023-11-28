@@ -114,39 +114,39 @@ export const Pick = () => {
       <Grid2 container direction="row" justifyContent="center" alignItems="center" sx={{ mt : '120px', mb: '18px' }}>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Create Fund :</Typography>
-          <Button onClick={() => createFund(9,"Test")} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => createFund(1,"Test")} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Delete Fund :</Typography>
-          <Button onClick={() => deleteFund(9)} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => deleteFund(1)} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Update Fund :</Typography>
-          <Button onClick={() => updateFund(9,"Other Test")} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => updateFund(1,"Other Test")} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Create Sub_Fund :</Typography>
-          <Button onClick={() => createSubFund(9, 1, "SubFund Test", "France", "EUR", "Finance", 30)} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => createSubFund(1, 15, "SubFund Test", "France", "EUR", "Finance", 30)} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Update Sub_Fund :</Typography>
-          <Button onClick={() => updateSubFund(9, 1, "Other SubFund Test", "UK", "LIVRE", "Manufacture", 62)} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => updateSubFund(1, 10, "Other SubFund Test", "UK", "LIVRE", "Manufacture", 62)} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Delete Sub_Fund :</Typography>
-          <Button onClick={() => deleteSubFund(9, 1)} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => deleteSubFund(1, 10)} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Calculate Score :</Typography>
-          <Button onClick={() => score(9, "28/11/2023 - 14h10", "link 1", "link 2")} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => score(1, "28/11/2023 - 14h10", "link 1", "link 2")} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Validate NFT :</Typography>
-          <Button onClick={() => audit(1, true)} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => audit(0, true)} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Cancel NFT :</Typography>
-          <Button onClick={() => audit(2, false)} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => audit(0, false)} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Other Page :</Typography>
