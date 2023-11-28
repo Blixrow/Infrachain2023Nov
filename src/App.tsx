@@ -19,7 +19,7 @@ import AddFund from './routes/AddFund';
 
 import './App.css'
 
-import backgroundImage from './Neom.png';
+import backgroundImage from './assets/images/background.jpg';
 
 
 const backgroundStyle = { 
@@ -28,6 +28,7 @@ const backgroundStyle = {
   backgroundPosition: 'center center',
   backgroundSize: 'cover',
   height: '100%',
+  backgroundColor: 'rgba(255, 255, 255, 1)', // Adjust the alpha value for transparency (not working)
 };
 
 const router = createBrowserRouter([

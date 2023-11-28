@@ -47,44 +47,42 @@ const ListeFonds: React.FC = (): JSX.Element => {
   }
 
   return (
-    <Container>
+    <Container style={{ padding: '0px 0px 0px 0px', backgroundColor: 'rgba(213, 213, 213, 0.9)' }}>
       <div className="status-boxes">
-        <div className="box green-box">Validated</div>
-        <div className="box orange-box">Reported</div>
-        <div className="box red-box">To Be Reported</div>
+        <div className="box green-box"><span className="big-number">2</span> Validated</div>
+        <div className="box orange-box"><span className="big-number">4 </span> Reported</div>
+        <div className="box red-box"><span className="big-number">10 </span> To Be Reported</div>
       </div>
 
-      <Grid container direction="column" justifyContent="center">
-        
-
+      <Grid container direction="column" justifyContent="center" style={{ padding: '0px 20px 0px 20px'}}> 
         {/* Titre de la liste */}
-        <Grid item xs={12} sx={{mt:'20px'}}>
+        <Grid item xs={12} sx={{ mt: '20px' }}>
           <Typography variant="h2" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
             Liste des fonds
           </Typography>
         </Grid>
 
         <div className='search-add'>
-  {/* Barre de recherche et bouton dans le même conteneur */}
-  <Grid container spacing={2} alignItems="center">
-    {/* Barre de recherche */}
-    <Grid item xs={6}>
-      <TextField label="Recherche" variant="outlined" fullWidth />
-    </Grid>
+          {/* Barre de recherche et bouton dans le même conteneur */}
+          <Grid container spacing={2} alignItems="center">
+            {/* Barre de recherche */}
+            <Grid item xs={6}>
+              <TextField label="Recherche" variant="outlined" fullWidth />
+            </Grid>
 
-    {/* Bouton Ajouter un fond */}
-    <Grid item xs={6} sx={{ textAlign: 'right' }}>
-      <Button
-        component={Link}
-        to="/addFund"
-        variant="outlined"
-        sx={{ ml: '18px', mt: '4px', color: 'black', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}
-      >
-        <img src={addIcon} alt="Add" style={{ width: '24px', height: '24px' }} />   Add a fund
-      </Button>
-</Grid>
-  </Grid>
-</div>
+            {/* Bouton Ajouter un fond */}
+            <Grid item xs={6} sx={{ textAlign: 'right' }}>
+              <Button
+                component={Link}
+                to="/addFund"
+                variant="outlined"
+                sx={{ ml: '18px', mt: '4px', color: 'black', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}
+              >
+                <img src={addIcon} alt="Add" style={{ width: '24px', height: '24px' }} />   Add a fund
+              </Button>
+            </Grid>
+          </Grid>
+        </div>
         {/* Tableau */}
         <Grid item xs={12}>
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
@@ -110,13 +108,13 @@ const ListeFonds: React.FC = (): JSX.Element => {
                       {item}
                     </td>
                   ))}
-                  <td style={{ border: '1px solid black', padding: '8px', textAlign:'center'}}>
+                  <td style={{ border: '1px solid black', padding: '8px', textAlign: 'center' }}>
                     {/* Actions */}
                     <IconButton onClick={() => handleDeleteAction(index)}>
                       <img src={deleteIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
                     </IconButton>
                     <IconButton onClick={() => handleViewAction(index)}>
-                      <img src={viewIcon} alt="View" style={{ width: '24px', height: '24px' }} /> 
+                      <img src={viewIcon} alt="View" style={{ width: '24px', height: '24px' }} />
                     </IconButton>
                     <IconButton onClick={() => handleEditAction(index)}>
                       <img src={editIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
@@ -128,7 +126,7 @@ const ListeFonds: React.FC = (): JSX.Element => {
           </table>
         </Grid>
 
-        
+
 
         {/* Bouton Voir les données publiques */}
         <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
