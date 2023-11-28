@@ -45,7 +45,7 @@ const router = createBrowserRouter([
     element: <ListeFonds />,
   },
   {
-    path: "/Details/:id",
+    path: "/Details",
     //element: <DetailsPage selectedTuple={["", "", "", "", ""]} />,
     element: <DetailsPage />,
   },
