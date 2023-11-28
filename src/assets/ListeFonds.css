@@ -1,0 +1,39 @@
+.status-boxes {
+    margin-top: 120px; /* Ajustez la valeur selon vos besoins */
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+    justify-content: space-between;
+  }
+
+  .box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 100px;
+    text-align: center;
+    line-height: 1; /* Set line-height to 1 to center the text vertically */
+    font-weight: bold;
+    border-radius: 10px; /* Adjust the border-radius as needed for rounded corners */
+    border: 1px solid #ccc; /* Optional: Add a border for styling */
+  }
+
+  .green-box {
+    background-color: green;
+    color: white;
+  }
+
+  .orange-box {
+    background-color: orange;
+    color: white;
+  }
+
+  .red-box {
+    background-color: red;
+    color: white;
+  }
+
+  .search-add{
+    display: inline-block
+  }

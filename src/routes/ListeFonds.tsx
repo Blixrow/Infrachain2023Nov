@@ -8,6 +8,12 @@ import Typography from '@mui/material/Typography';
 import { createBrowserHistory } from 'history';
 //import DetailsPage from './DetailsPage';
 import { useNavigate } from 'react-router-dom';
+import '../assets/ListeFonds.css'
+import { TextField, IconButton } from '@mui/material';
+import deleteIcon from '../assets/icons/bin.svg'
+import viewIcon from '../assets/icons/pen.png'
+import editIcon from '../assets/icons/view.png'
+import addIcon from '../assets/icons/plus.svg'
 
 const items: [string, string, string, string, string][] = [
   ["Item 1a", "1", "Statut 1", "NFT 1", "2023-11-27"],
@@ -28,14 +34,58 @@ const ListeFonds: React.FC = (): JSX.Element => {
     navigate("../details/"+1)
   };
 
+  function handleDeleteAction(index: number) {
+    throw new Error('Function not implemented.');
+  }
+
+  function handleViewAction(index: number): void {
+    throw new Error('Function not implemented.');
+  }
+
+  function handleEditAction(index: number): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <Container>
-      <Grid container direction="column" justifyContent="center" alignItems="center">
-        <Grid item xs={12}>
-          <Typography variant="h2" sx={{ mt: '140px', mb: '60px', fontFamily: 'Dancing Script', justifyContent: 'center' }}>
+      <div className="status-boxes">
+        <div className="box green-box">Validated</div>
+        <div className="box orange-box">Reported</div>
+        <div className="box red-box">To Do</div>
+      </div>
+
+      <Grid container direction="column" justifyContent="center">
+        
+
+        {/* Titre de la liste */}
+        <Grid item xs={12} sx={{mt:'20px'}}>
+          <Typography variant="h2" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
             Liste des fonds
           </Typography>
         </Grid>
+
+        <div className='search-add'>
+  {/* Barre de recherche et bouton dans le même conteneur */}
+  <Grid container spacing={2} alignItems="center">
+    {/* Barre de recherche */}
+    <Grid item xs={6}>
+      <TextField label="Recherche" variant="outlined" fullWidth />
+    </Grid>
+
+    {/* Bouton Ajouter un fond */}
+    <Grid item xs={6} sx={{ textAlign: 'right' }}>
+      <Button
+        component={Link}
+        to="/addFund"
+        variant="outlined"
+        sx={{ ml: '18px', mt: '4px', color: 'black', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}
+      >
+        <img src={addIcon} alt="Add" style={{ width: '24px', height: '24px' }} />   Add a fund
+      </Button>
+</Grid>
+  </Grid>
+</div>
+        {/* Tableau */}
         <Grid item xs={12}>
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
             <thead>
@@ -45,6 +95,7 @@ const ListeFonds: React.FC = (): JSX.Element => {
                 <th style={{ border: '1px solid black', padding: '8px' }}>Statut</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>NFT</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
+                <th style={{ border: '1px solid black', padding: '8px' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -59,23 +110,27 @@ const ListeFonds: React.FC = (): JSX.Element => {
                       {item}
                     </td>
                   ))}
+                  <td style={{ border: '1px solid black', padding: '8px', textAlign:'center'}}>
+                    {/* Actions */}
+                    <IconButton onClick={() => handleDeleteAction(index)}>
+                      <img src={deleteIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
+                    </IconButton>
+                    <IconButton onClick={() => handleViewAction(index)}>
+                      <img src={viewIcon} alt="View" style={{ width: '24px', height: '24px' }} /> 
+                    </IconButton>
+                    <IconButton onClick={() => handleEditAction(index)}>
+                      <img src={editIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
+                    </IconButton>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </Grid>
-        <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
-          <Grid item>
-            <Typography variant="h5" sx={{ fontFamily: 'Dancing Script' }}>
-              Ajouter un fond
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Button component={Link} to="/addFund" sx={{ ml: '18px', mt: '4px' }}>
-              Cliquez ici
-            </Button>
-          </Grid>
-        </Grid>
+
+        
+
+        {/* Bouton Voir les données publiques */}
         <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
           <Grid item>
             <Typography variant="h5" sx={{ fontFamily: 'Dancing Script' }}>
