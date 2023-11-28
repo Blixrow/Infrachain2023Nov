@@ -19,7 +19,7 @@ import AddFund from './routes/AddFund';
 
 import './App.css'
 
-import backgroundImage from './Neom.png';
+import backgroundImage from './assets/images/background.jpg';
 
 
 const backgroundStyle = { 
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
     element: <ListeFonds />,
   },
   {
-    path: "/Details/:id",
+    path: "/Details",
     //element: <DetailsPage selectedTuple={["", "", "", "", ""]} />,
     element: <DetailsPage />,
   },

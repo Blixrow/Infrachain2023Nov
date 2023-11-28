@@ -10,7 +10,6 @@ import { ThemeSwitch } from './ThemeSwitch';
 import { ExportImg } from './ExportImg';
 
 import UserDisplayName from './UserDisplayName';
-
 export const TopBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>

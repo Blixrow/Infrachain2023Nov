@@ -31,7 +31,7 @@ const ListeFonds: React.FC = (): JSX.Element => {
   const handleTableRowClick = (tuple: [string, string, string, string, string], index: number) => {
     setSelectedTuple(tuple);
     //history.push(`/details/${index}`);
-    navigate("../details/"+1)
+    navigate(`../details`, { state: { tuple } });
   };
 
   function handleDeleteAction(index: number) {
