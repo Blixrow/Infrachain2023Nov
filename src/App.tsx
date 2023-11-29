@@ -54,6 +54,10 @@ const router = createBrowserRouter([
     element: <Data />,
   },
   {
+    path: "/pop",
+    element: <Data />,
+  },
+  {
     path: "/addFund",
     element: <AddFund />,
   },

@@ -14,6 +14,10 @@ import deleteIcon from '../assets/icons/bin.svg'
 import viewIcon from '../assets/icons/pen.png'
 import editIcon from '../assets/icons/view.png'
 import addIcon from '../assets/icons/plus.svg'
+import { useContract } from "../contexts/Contract";
+import { Nat, Address } from '@completium/archetype-ts-types';
+import { useConnect, useIsConnected, useWalletAddress } from "../contexts/Beacon";
+import { funds_key } from '../bindings/main';
 
 const items: [string, string, string, string, string][] = [
   ["Item 1a", "1", "Statut 1", "NFT 1", "2023-11-27"],
@@ -26,6 +30,44 @@ const items: [string, string, string, string, string][] = [
 const history = createBrowserHistory();
 
 const ListeFonds: React.FC = (): JSX.Element => {
+  const [loading, setLoading] = React.useState(false)
+  const [fundsID, setfundsID] = React.useState("")
+  const [funds, setfunds] = React.useState("")
+  const [status, setstatus] = React.useState("")
+  const [reportsID, setreportsID] = React.useState("")
+  const contract = useContract() 
+  const wallet_address = useWalletAddress()
+
+  async function getFundIDs() {
+    if (wallet_address) {
+      const ledg = await contract.get_ledger_value(new Address(wallet_address))
+      if (ledg) {
+        var funds = ledg.l_funds
+        if (funds) {
+          setfundsID(funds.toString())
+          return
+        }
+      }
+    }
+    return
+  }
+  async function getFunds() {
+    if (wallet_address) {
+      const [fundsids] = await Promise.all([getFundIDs()]);
+      const ids = fundsID.split(",")
+      var fundss : String[] = []
+      await Promise.all(ids.map(async value => {
+        const fund = await contract.get_funds_value(new funds_key(new Nat(parseInt(value)),new Address(wallet_address)))
+        if (fund) {
+          fundss.push(fund.f_name+"/"+fund.f_subs.toString())
+        }
+      }));
+      setfunds(fundss.toString())
+    }
+  }
+  Promise.all([getFunds()]);
+  console.log(funds)
+
   const [selectedTuple, setSelectedTuple] = useState<[string, string, string, string, string] | null>(null);
   const navigate=useNavigate();
   const handleTableRowClick = (tuple: [string, string, string, string, string], index: number) => {
