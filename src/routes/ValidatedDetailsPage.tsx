@@ -253,7 +253,7 @@ export const DetailsPage = () => {
                 <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
                   <thead>
                     <tr>
-                      <th style={{ border: '1px solid black', padding: '8px' }}>Nom</th>
+                      <th style={{ border: '1px solid black', padding: '8px' }}>Name</th>
                       <th style={{ border: '1px solid black', padding: '8px' }}>ID</th>
                       <th style={{ border: '1px solid black', padding: '8px' }}>Country</th>
                       <th style={{ border: '1px solid black', padding: '8px' }}>Risked</th>

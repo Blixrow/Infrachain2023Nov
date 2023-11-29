@@ -159,7 +159,7 @@ background-color: #153c57; /* Nouvelle couleur de fond au survol */
   align-self: flex-end;
 }
 .popup-table {
-  border: 1px solid #ddd;
+  border: 1px solid #000000;
   padding: 8px;
   text-align: center;
   border-collapse: collapse;
