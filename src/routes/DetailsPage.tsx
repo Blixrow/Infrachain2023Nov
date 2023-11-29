@@ -59,7 +59,7 @@ export const DetailsPage = () => {
   const tuple = location.state?.tuple || [];
 
 
-  const statut: number = 0;
+  const statut: number = 2;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -126,11 +126,11 @@ export const DetailsPage = () => {
         <div className="identite_fond">
             <div className="identite_fond_texte">
               <Typography variant="h3">{tuple[0]}</Typography>
-              <Typography variant="h5">Nom: {tuple[0]}</Typography>
-              <Typography variant="h5">ID: {tuple[1]}</Typography>
-              <Typography variant="h5">Statut: {tuple[2]}</Typography>
-              <Typography variant="h5">NFT: {tuple[3]}</Typography>
-              <Typography variant="h5">Date: {tuple[4]}</Typography>
+              <Typography variant="h5"><span style={{ fontWeight: 'bold' }}>Nom : </span>{tuple[0]}</Typography>
+              <Typography variant="h5"><span style={{ fontWeight: 'bold' }}>ID : </span>{tuple[1]}</Typography>
+              <Typography variant="h5"><span style={{ fontWeight: 'bold' }}>Statut : </span>{tuple[2]}</Typography>
+              <Typography variant="h5"><span style={{ fontWeight: 'bold' }}>NFT : </span>{tuple[3]}</Typography>
+              <Typography variant="h5"><span style={{ fontWeight: 'bold' }}>Date : </span>{tuple[4]}</Typography>
             </div>
           </div>
 
