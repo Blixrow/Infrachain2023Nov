@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Grid2 from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import '../assets/PickPage.css'
+//import '../assets/PickPage.css'
 
 export const Pick = () => {
   return <Container>
