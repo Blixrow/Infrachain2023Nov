@@ -7,7 +7,8 @@ import { HelpLink } from './HelpLink';
 import { LoginButton } from './LoginButton';
 import { TezosIcon } from './TezosIcon';
 import { ThemeSwitch } from './ThemeSwitch';
-import { ExportImg } from './ExportImg';
+
+import Typography from '@mui/material/Typography';
 
 import UserDisplayName from './UserDisplayName';
 export const TopBar = () => {
@@ -16,10 +17,8 @@ export const TopBar = () => {
       <AppBar position="fixed">
         <Toolbar>
           <TezosIcon />
-          <ExportImg logoUrl="C:\Users\bapti\Pictures\Screenshots\Neom.png" altText="Oups" />
+          <Typography><span style={{ fontSize: '40px', fontWeight: 'bold'}}>CompliChain</span></Typography>
           <HelpLink />
-          <GitHubLink />
-          <ThemeSwitch />
           <LoginButton />
           <UserDisplayName />
         </Toolbar>
