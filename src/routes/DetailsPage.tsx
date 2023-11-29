@@ -154,7 +154,7 @@ export const DetailsPage = () => {
 
           </div>
         </div>
-
+      </div>
 
         <div className='id_table_sf'>
           <div className="identite_fond">
@@ -277,7 +277,7 @@ export const DetailsPage = () => {
           {/* Conditionnellement rendre DetailsPage */}
           {/*selectedTuple && <DetailsPage {...{ selectedTuple }} />*/}
         </div>
-      </div>
+      
     </div>
   );
 };
