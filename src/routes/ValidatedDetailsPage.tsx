@@ -27,6 +27,8 @@ const history = createBrowserHistory();
 
 
 export const DetailsPage = () => {
+  Score(1, "29/11/2023", "ipfs://QmPibs6dkHjoJAkE9BiPURCnCBfphaT7P6y5MZ4eTYtyS9", "ipfs://QmPibs6dkHjoJAkE9BiPURCnCBfphaT7P6y5MZ4eTYtyS9")
+
   const connect = useConnect()
   const is_connected = useIsConnected()
   const [loading, setLoading] = React.useState(false)
@@ -308,6 +310,46 @@ export const DetailsPage = () => {
                 </Grid>
               </Grid>*/}
             </Grid>
+            {/* Bouton Voir les données publiques /}
+          <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '30px', mb: '18px' }}>
+            <Grid item>
+              <Typography variant="h5" sx={{ fontSize: '11px' }}>
+                Public data:
+              </Typography>
+            </Grid>
+            <Grid item>
+              <a href="https://www.google.fr/" style={{ color: 'black', marginLeft: '18px', marginTop: '4px', textDecoration: 'none' }}>
+                available here
+              </a>
+            </Grid>
+          </Grid>
+
+                    {/ Bouton Voir les données publiques */}
+          <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '30px', mb: '18px' }}>
+            <Grid item>
+              <Typography variant="h5" sx={{ fontSize: '11px' }}>
+                Follow your transaction:
+              </Typography>
+            </Grid>
+            <Grid item>
+              <a href="https://ghostnet.tzkt.io/KT1Jxav5JGBVY8ZULnGZUrH8qbsLbVpMRe9W/operations/" style={{ color: 'black', marginLeft: '18px', marginTop: '4px', textDecoration: 'none' }}>
+                available here
+              </a>
+            </Grid>
+          </Grid>
+          <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '30px', mb: '18px' }}>
+            <Grid item>
+              <Typography variant="h5" sx={{ fontSize: '11px' }}>
+                Follow your NFT:
+              </Typography>
+            </Grid>
+            <Grid item>
+              <a href="https://ghostnet.tzkt.io/KT1QBNWmpCZSzx1urbEZWtS5CYZ4EdaHseMB/operations/" style={{ color: 'black', marginLeft: '18px', marginTop: '4px', textDecoration: 'none' }}>
+                available here
+              </a>
+            </Grid>
+          </Grid>
+
           </div>
           {/* Conditionnellement rendre DetailsPage */}
           {/*selectedTuple && <DetailsPage {...{ selectedTuple }} />*/}

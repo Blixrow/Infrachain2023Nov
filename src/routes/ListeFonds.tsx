@@ -154,9 +154,8 @@ const ListeFonds: React.FC = (): JSX.Element => {
           <div className='title_lf_left'>
             {/* Titre de la liste */}
             <Grid item xs={12} sx={{ mt: '20px' }}>
-              <Typography variant="h2" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
-                Funds List
-              </Typography>
+              <Typography><span style={{fontSize: '90px', fontWeight: 'bold', textDecoration: '' }}>Funds List</span></Typography>
+
             </Grid>
           </div>
 
