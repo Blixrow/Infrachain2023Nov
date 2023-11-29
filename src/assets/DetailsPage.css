@@ -2,20 +2,21 @@
 
 .total-boxe_sf{
   background-color: rgba(213, 213,213, 0.9);
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 10%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 3%;
 }
 
 
 /* Div du bas, tableau et ID*/
 .identite_fond {
-     border: 10px solid #000000; /* Bordure grise */
-     border-radius: 10px; /* Coins arrondis */
+     border: 5px solid #000000; /* Bordure grise */
+     border-radius: 5px; /* Coins arrondis */
      padding: 30px; /* Espacement interne */
-     max-width: 300px; /* Largeur maximale */
+     max-width: 500px; /* Largeur maximale */
      margin-left: 2%;
      float: left;
+     background-color: #d3d3d3;
    }
 
 
@@ -27,11 +28,11 @@
 
 .table_sf {
   margin-left:25%;
-  margin-right: 2%;   
+  margin-right: 2%;  
+  background-color: #d3d3d3; 
 }
 
 .id_table_sf{
-  background-color: aquamarine;
   justify-content: flex;
 }
 
@@ -43,15 +44,25 @@
 
 .inline-div {
   display: flex;
+  justify-content: space-between;  /*Ajustez selon vos besoins */
+  width: 100%;
+  padding: 40px; /* Ajoutez un padding pour l'espace entre les éléments */
+}
+
+
+
+.title_sf_left{
+  margin-right: 28%;
+}
+
+.sf_right{
+  display: flex;
   justify-content: flex-end;  /*Ajustez selon vos besoins */
   width: 100%;
-  padding: 20px; /* Ajoutez un padding pour l'espace entre les éléments */
-  background-color: aqua;
-  padding-left: 40%;
+  padding: 40px; /* Ajoutez un padding pour l'espace entre les éléments */
 }
 
 .color-box{
-
   margin-right: 10%;
 }
 
@@ -61,8 +72,8 @@
 
 
 display: inline-block;
-padding: 30px 80px; /* Ajustez la taille du bouton en modifiant ces valeurs */
-font-size: 20px; /* Ajustez la taille de la police en modifiant cette valeur */
+padding: 50px 110px; /* Ajustez la taille du bouton en modifiant ces valeurs */
+font-size: 40px; /* Ajustez la taille de la police en modifiant cette valeur */
 text-align: center;
 text-decoration: none;
 cursor: pointer;
@@ -75,7 +86,7 @@ transition: background-color 0.3s ease; /* Animation de transition de la couleur
 
 /* Changez la couleur de fond du bouton au survol */
 .popup-Button:hover {
-background-color: #2980b9; /* Nouvelle couleur de fond au survol */
+background-color: #153c57; /* Nouvelle couleur de fond au survol */
 }
 .Overlay {
   position: fixed;

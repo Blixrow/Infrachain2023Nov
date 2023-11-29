@@ -59,7 +59,7 @@ export const DetailsPage = () => {
   const tuple = location.state?.tuple || [];
 
 
-  const statut: number = 2;
+  const statut: number = 0;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -85,58 +85,67 @@ export const DetailsPage = () => {
   return (
 
     <div className='total-boxe_sf'>
+
       <div className='inline-div'>
 
 
-        <div className='color-box'>
-          <ColorBox statut={statut} /> {/* Ajoutez la boîte de couleur ici */}
+        <div className='title_sf_left'>
+
+          <Typography variant="h1"><span style={{ fontWeight: 'bold', textDecoration: 'underline' }}>{tuple[0]}</span></Typography>
+
         </div>
 
-        <div className='popup-Button_div'>
-          <button onClick={openModal} className='popup-Button'>Risk Evaluation</button>
+        <div className='sf_right'>
+          <div className='color-box'>
+            <ColorBox statut={statut} /> {/* Ajoutez la boîte de couleur ici */}
+          </div>
 
-          <Modal
-            isOpen={isModalOpen}
-            onRequestClose={closeModal}
-            contentLabel="Example Modal"
-            overlayClassName="Overlay"
-            className="Modal"
-          >
-            <div className="Modal-header">
-              <h2>Risk assessment</h2>
-              <button className="Modal-close"
-                onClick={closeModal}>
-                X
-              </button>
-            </div>
-            <div className="Modal-body">
-              <p>Before initiating the smart contract for risk calculation and NFT creation, you need to upload evidence files</p>
-              <form onSubmit={handleSubmit}>
-                <h2>Upload Document:</h2>
-                <input type="file" onChange={handleFileChange} />
-                <button type="submit">Submit</button>
-              </form>
-            </div>
-            <div className="Modal-footer">
-              <button onClick={closeModal}>Cancel</button>
-            </div>
-          </Modal>
+          <div className='popup-Button_div'>
+            <button onClick={openModal} className='popup-Button'>Risk Evaluation</button>
+
+            <Modal
+              isOpen={isModalOpen}
+              onRequestClose={closeModal}
+              contentLabel="Example Modal"
+              overlayClassName="Overlay"
+              className="Modal"
+            >
+              <div className="Modal-header">
+                <h2>Risk assessment</h2>
+                <button className="Modal-close"
+                  onClick={closeModal}>
+                  X
+                </button>
+              </div>
+              <div className="Modal-body">
+                <p>Before initiating the smart contract for risk calculation and NFT creation, you need to upload evidence files</p>
+                <form onSubmit={handleSubmit}>
+                  <h2>Upload Document:</h2>
+                  <input type="file" onChange={handleFileChange} />
+                  <button type="submit">Submit</button>
+                </form>
+              </div>
+              <div className="Modal-footer">
+                <button onClick={closeModal}>Cancel</button>
+              </div>
+            </Modal>
+          </div>
+
         </div>
-
       </div>
 
-      
+
       <div className='id_table_sf'>
         <div className="identite_fond">
-            <div className="identite_fond_texte">
-              <Typography variant="h3">{tuple[0]}</Typography>
-              <Typography variant="h5"><span style={{ fontWeight: 'bold' }}>Nom : </span>{tuple[0]}</Typography>
-              <Typography variant="h5"><span style={{ fontWeight: 'bold' }}>ID : </span>{tuple[1]}</Typography>
-              <Typography variant="h5"><span style={{ fontWeight: 'bold' }}>Statut : </span>{tuple[2]}</Typography>
-              <Typography variant="h5"><span style={{ fontWeight: 'bold' }}>NFT : </span>{tuple[3]}</Typography>
-              <Typography variant="h5"><span style={{ fontWeight: 'bold' }}>Date : </span>{tuple[4]}</Typography>
-            </div>
+          <div className="identite_fond_texte">
+            <Typography variant="h1"><span style={{ fontWeight: 'bold', textDecoration: 'underline' }}>{tuple[0]}</span></Typography>
+            <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Nom : </span>{tuple[0]}</Typography>
+            <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>ID : </span>{tuple[1]}</Typography>
+            <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Statut : </span>{tuple[2]}</Typography>
+            <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>NFT : </span>{tuple[3]}</Typography>
+            <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Date : </span>{tuple[4]}</Typography>
           </div>
+        </div>
 
         <div className='table_sf'>
           <Grid container direction="column" justifyContent="center">
@@ -144,7 +153,7 @@ export const DetailsPage = () => {
 
             {/* Titre de la liste */}
             <Grid item xs={12} sx={{ mt: '20px' }}>
-              <Typography variant="h2" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
+              <Typography variant="h3" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
                 Liste des sous-fonds
               </Typography>
             </Grid>
@@ -159,14 +168,28 @@ export const DetailsPage = () => {
 
                 {/* Bouton Ajouter un fond */}
                 <Grid item xs={6} sx={{ textAlign: 'right' }}>
+
+                  {/* Bouton upload via excel */}
                   <Button
                     component={Link}
                     to="/addFund"
                     variant="outlined"
                     sx={{ ml: '18px', mt: '4px', color: 'black', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}
                   >
-                    <img src={addIcon} alt="Add" style={{ width: '24px', height: '24px' }} />   Add a fund
+                    <img src={addIcon} alt="Add" style={{ width: '24px', height: '24px' }} />   . Upload via Excel
                   </Button>
+
+
+
+                  <Button
+                    component={Link}
+                    to="/addFund"
+                    variant="outlined"
+                    sx={{ ml: '18px', mt: '4px', color: 'black', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}
+                  >
+                    <img src={addIcon} alt="Add" style={{ width: '24px', height: '24px' }} />   . Add a fund
+                  </Button>
+
                 </Grid>
               </Grid>
             </div>
@@ -237,57 +260,6 @@ export const DetailsPage = () => {
   );
 };
 
-
-
-/* 
-
-   const { id } = useParams();
-   const location = useLocation();
-   const tuple = location.state?.tuple || [];
- return (
-   <div>
-     <Grid2 container direction="row" justifyContent="center" alignItems="center">
-
-     
-     <div className="identite_fond">
-       <div className="identite_fond_texte">
-         <Typography variant="h4">{tuple[0]}</Typography>
-         <Typography variant="body1">Nom: {tuple[0]}</Typography>
-         <Typography variant="body1">ID: {tuple[1]}</Typography>
-         <Typography variant="body1">Statut: {tuple[2]}</Typography>
-         <Typography variant="body1">NFT: {tuple[3]}</Typography>
-         <Typography variant="body1">Date: {tuple[4]}</Typography>
-       </div>
-     </div>
-
-     <div className="sub_fonds_table">
-       <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
-         <thead>
-           <tr>
-             <th style={{ border: '1px solid black', padding: '8px' }}>ID</th>
-             <th style={{ border: '1px solid black', padding: '8px' }}>Nom</th>
-             <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
-             <th style={{ border: '1px solid black', padding: '8px' }}>Devise</th>
-           </tr>
-         </thead>
-         <tbody>
-           {subFondsData.map((subFond) => (
-             <tr key={subFond.id}>
-               <td style={{ border: '1px solid black', padding: '8px' }}>{subFond.id}</td>
-               <td style={{ border: '1px solid black', padding: '8px' }}>{subFond.name}</td>
-               <td style={{ border: '1px solid black', padding: '8px' }}>{subFond.date}</td>
-               <td style={{ border: '1px solid black', padding: '8px' }}>{subFond.currency}</td>
-             </tr>
-           ))}
-         </tbody>
-       </table>
-     </div>
-     </Grid2>
->>>>>>> 152ec9ffc4b46a8b0143258461083e7f0d99dbc3
-   </div>
- );
-};
-*/
 export default DetailsPage;
 function setIsModalOpen(arg0: boolean) {
   throw new Error('Function not implemented.');
