@@ -134,7 +134,7 @@ export const DetailsPage = () => {
 
         <div className='title_sf_left'>
 
-          <Typography variant="h1"><span style={{ fontWeight: 'bold', textDecoration: 'underline' }}>{tuple[0]}</span></Typography>
+          <Typography><span style={{fontSize: '90px', fontWeight: 'bold', textDecoration: 'underline' }}>{tuple[0]}</span><span style={{fontSize: '90px', textDecoration: 'underline' }}>: Sub-Funds</span></Typography>
         </div>
 
         <div className='sf_right'>
@@ -202,7 +202,6 @@ export const DetailsPage = () => {
         <div className='id_table_sf'>
           <div className="identite_fond">
             <div className="identite_fond_texte">
-              <Typography variant="h1"><span style={{ fontWeight: 'bold', textDecoration: 'underline' }}>{tuple[0]}</span></Typography>
               <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Nom : </span>{tuple[0]}</Typography>
               <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>ID : </span>{tuple[1]}</Typography>
               <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Statut : </span>{tuple[2]}</Typography>

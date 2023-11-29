@@ -133,20 +133,33 @@ const ListeFonds: React.FC = (): JSX.Element => {
   }
 
   return (
-    <Container style={{ padding: '0px 0px 0px 0px', backgroundColor: 'rgba(213, 213, 213, 0.9)' }}>
+    <Container style={{marginTop:'5%', padding: '5px 0px 0px 0px', backgroundColor: 'rgba(213, 213, 213, 0.9)' }}>
+
+      <Grid item xs={12} sx={{ mt: '20px' }}>
+        <Typography variant="h2" sx={{ mt: '40px', mb: '10px', ml: '5%', justifyContent: 'center' }}>
+          Liste des fonds
+        </Typography>
+      </Grid>
+
       <div className="status-boxes">
         <div className="box green-box"><span className="big-number">2</span> Validated</div>
         <div className="box orange-box"><span className="big-number">4 </span> Reported</div>
         <div className="box red-box"><span className="big-number">10 </span> To Be Reported</div>
       </div>
 
-      <Grid container direction="column" justifyContent="center" style={{ padding: '0px 20px 0px 20px'}}> 
-        {/* Titre de la liste */}
+
+
+      <Grid container direction="column" justifyContent="center" style={{ padding: '0px 20px 0px 20px' }}>
+        
+        {/*
+        {/* Titre de la liste 
         <Grid item xs={12} sx={{ mt: '20px' }}>
           <Typography variant="h2" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
             Liste des fonds
           </Typography>
         </Grid>
+        */}
+        
 
         <div className='search-add'>
           {/* Barre de recherche et bouton dans le même conteneur */}
