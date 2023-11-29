@@ -76,6 +76,8 @@ export const DetailsPage = () => {
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+    alert("initiating smart contract");
+    alert("calculating risk assessment");
     throw new Error('Function not implemented.');
   }
 
@@ -110,22 +112,24 @@ export const DetailsPage = () => {
             overlayClassName="Overlay"
             className="Modal"
           >
-            <h2>Popup Content</h2>
-            <p>This is the content of the popup.</p>
-            <button onClick={closeModal}>Close Popup</button>
-
-            <div> 
-              <h1>Welcome to our App!</h1> 
-              <div> 
-              <h2>Scores:</h2> 
-              <ul> 
-                <li>Score 1: 90</li> 
-                <li>Score 2: 75</li> 
-                <li>Score 3: 82</li> 
-              </ul> 
-              </div> 
+            <div className="Modal-header">
+              <h2>Risk assessment</h2>
+              <button className="Modal-close"
+                onClick={closeModal}>
+                X
+              </button>
             </div>
-            <form onSubmit={handleSubmit}> <h2>Upload Document:</h2> <input type="file" onChange={handleFileChange} /> <button type="submit">Submit</button> </form>
+            <div className="Modal-body">
+              <p>Before initiating the smart contract for risk calculation and NFT creation, you need to upload evidence files</p>
+              <form onSubmit={handleSubmit}>
+                <h2>Upload Document:</h2>
+                <input type="file" onChange={handleFileChange} />
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+            <div className="Modal-footer">
+              <button onClick={closeModal}>Cancel</button>
+            </div>
           </Modal>
         </div>
 
