@@ -159,9 +159,9 @@ const ListeFonds: React.FC = (): JSX.Element => {
 
 
           <div className="status-boxes" style={{ padding: '0px 0px 0px 0px', backgroundColor: 'rgba(213, 213, 213, 0.9)' }}>
-            <div className="box green-box"><span className="big-number">1</span> Validated</div>
-            <div className="box orange-box"><span className="big-number">1</span> Calculated</div>
             <div className="box red-box"><span className="big-number">1</span> To Do</div>
+            <div className="box orange-box"><span className="big-number">1</span> Calculated</div>
+            <div className="box green-box"><span className="big-number">1</span> Validated</div>
           </div>
 
         </div>
