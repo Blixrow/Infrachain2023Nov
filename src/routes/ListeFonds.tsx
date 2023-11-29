@@ -14,6 +14,10 @@ import deleteIcon from '../assets/icons/bin.svg'
 import viewIcon from '../assets/icons/pen.png'
 import editIcon from '../assets/icons/view.png'
 import addIcon from '../assets/icons/plus.svg'
+import { useContract } from '../contexts/Contract';
+import { useWalletAddress } from '../contexts/Beacon';
+import { funds_key } from '../bindings/main';
+import { Address, Nat } from '@completium/archetype-ts-types';
 
 const items: [string, string, string, string, string][] = [
   ["Item 1a", "1", "Statut 1", "NFT 1", "2023-11-27"],
@@ -26,6 +30,96 @@ const items: [string, string, string, string, string][] = [
 const history = createBrowserHistory();
 
 const ListeFonds: React.FC = (): JSX.Element => {
+  const [loading, setLoading] = React.useState(false)
+  const [fundsID, setfundsID] = React.useState("")
+  const [funds, setfunds] = React.useState("")
+  const [status, setstatus] = React.useState("")
+  const [reportsID, setreportsID] = React.useState("")
+  const contract = useContract() 
+  const wallet_address = useWalletAddress()
+
+  async function getFundIDs() {
+    if (wallet_address) {
+      const ledg = await contract.get_ledger_value(new Address(wallet_address))
+      if (ledg) {
+        var funds = ledg.l_funds
+        if (funds) {
+          setfundsID(funds.toString())
+          return
+        }
+      }
+    }
+    return
+  }
+  async function getFunds() {
+    if (wallet_address) {
+      const [fundsids] = await Promise.all([getFundIDs()]);
+      const ids = fundsID.split(",")
+      var fundss : String[] = []
+      await Promise.all(ids.map(async value => {
+        const fund = await contract.get_funds_value(new funds_key(new Nat(parseInt(value)),new Address(wallet_address)))
+        if (fund) {
+          fundss.push(value+"/"+fund.f_name+"/"+fund.f_subs.toString())
+        }
+      }));
+      setfunds(fundss.toString())
+    }
+  }
+  async function getReportsIDs() {
+    if (wallet_address) {
+      const ledg = await contract.get_ledger_value(new Address(wallet_address))
+      if (ledg) {
+        var reports = ledg.l_reports
+        if (reports) {
+          setreportsID(reports.toString())
+          return
+        }
+      }
+    }
+  }
+  async function getStatus() {
+    if (wallet_address) {
+      const [fundsids] = await Promise.all([getReportsIDs()]);
+      const ids = reportsID.split(",")
+      var reports : String[] = []
+      var stat : String[] = []
+      console.log(ids[0])
+      await Promise.all(ids.map(async (value,index,array) => {
+        const report = await contract.get_reports_value(new Nat(parseInt(index.toString())))
+        if (report) {
+          if (report.t_validated){
+            stat.push(report.t_fund_id+"/Validated")
+          } else {
+            stat.push(report.t_fund_id+"/Calculated")
+          }
+        }
+      }));
+      setstatus(stat.toString())
+    }
+  }
+
+  var items: [string, string, string, string, string][] = [];
+  function updateitems() {
+    Promise.all([getFunds(),getStatus()])
+    funds.split(",").map( (value, index, array) => {
+      var splitted = value.split("/")
+      var stat = "Not Calculated"
+      var stats = status.split(",")
+      console.log(stats)
+      if (stats.indexOf(splitted[0]+"/Validated") > -1) {
+        stat = "Validated"
+      }
+      if (stats.indexOf(splitted[0]+"/Calculated") > -1) {
+        stat = "Calculated"
+      }
+      items[index] = [splitted[1], splitted[0], stat, "None", "2023-11-27"]
+    })
+  }
+  Promise.all([updateitems()])
+
+  
+  
+
   const [selectedTuple, setSelectedTuple] = useState<[string, string, string, string, string] | null>(null);
   const navigate=useNavigate();
   const handleTableRowClick = (tuple: [string, string, string, string, string], index: number) => {
@@ -99,9 +193,9 @@ const ListeFonds: React.FC = (): JSX.Element => {
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
             <thead>
               <tr>
-                <th style={{ border: '1px solid black', padding: '8px' }}>Nom</th>
+                <th style={{ border: '1px solid black', padding: '8px' }}>Name</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>ID</th>
-                <th style={{ border: '1px solid black', padding: '8px' }}>Statut</th>
+                <th style={{ border: '1px solid black', padding: '8px' }}>Status</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>NFT</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>Actions</th>
@@ -140,15 +234,15 @@ const ListeFonds: React.FC = (): JSX.Element => {
 
 
         {/* Bouton Voir les données publiques */}
-        <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
+        <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '30px', mb: '18px' }}>
           <Grid item>
-            <Typography variant="h5" sx={{ fontFamily: 'Dancing Script' }}>
-              Voir les données publiques :
+            <Typography variant="h5" sx={{ fontSize: '11px' }}>
+              Public data:
             </Typography>
           </Grid>
           <Grid item>
-            <Button component={Link} to="/data" sx={{ ml: '18px', mt: '4px' }}>
-              Cliquez ici
+            <Button component={Link} to="/data" sx={{color: 'black', ml: '18px', mt: '4px' }}>
+              available here
             </Button>
           </Grid>
         </Grid>
