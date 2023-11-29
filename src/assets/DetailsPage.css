@@ -138,3 +138,19 @@ background-color: #2980b9; /* Nouvelle couleur de fond au survol */
   text-align: right;
   border-top: 1px solid #ddd;
 }
+.popup-table {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #7c7979;
+}
+
+.table-cell{
+  border: 1px solid #ddd;
+}
+
+.table-header{
+  border: 1px solid #ddd;
+}
