@@ -78,8 +78,7 @@ export const DetailsPage = () => {
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
-    event.preventDefault();
-    throw new Error('Function not implemented.');
+    alert('hello')
   }
 
   return (
