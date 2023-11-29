@@ -142,6 +142,36 @@ background-color: #153c57; /* Nouvelle couleur de fond au survol */
 
 .Modal-footer {
   padding: 10px;
-  text-align: right;
+  justify-content: flex-end;
   border-top: 1px solid #ddd;
+  display: flex;
+}
+
+
+.validate-button{
+  justify-content: flex-start !important;
+  align-self: left;
+  align-content: center;
+  align-items: center;
+  margin-right: 25%;
+}
+
+.cancel-button{
+  align-self: flex-end;
+}
+.popup-table {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #7c7979;
+}
+
+.table-cell{
+  border: 1px solid #ddd;
+}
+
+.table-header{
+  border: 1px solid #ddd;
 }

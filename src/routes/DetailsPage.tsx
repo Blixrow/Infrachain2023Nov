@@ -15,6 +15,7 @@ import editIcon from '../assets/icons/view.png'
 import addIcon from '../assets/icons/plus.svg'
 import Modal from 'react-modal';
 import ColorBox from '../components/ColorBox';
+import { auto, right } from '@popperjs/core';
 
 
 
@@ -77,8 +78,7 @@ export const DetailsPage = () => {
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
-    alert("initiating smart contract");
-    alert("calculating risk assessment");
+    event.preventDefault();
     throw new Error('Function not implemented.');
   }
 
@@ -92,13 +92,13 @@ export const DetailsPage = () => {
         <div className='title_sf_left'>
 
           <Typography variant="h1"><span style={{ fontWeight: 'bold', textDecoration: 'underline' }}>{tuple[0]}</span></Typography>
-
         </div>
 
         <div className='sf_right'>
           <div className='color-box'>
             <ColorBox statut={statut} /> {/* Ajoutez la boîte de couleur ici */}
           </div>
+
 
           <div className='popup-Button_div'>
             <button onClick={openModal} className='popup-Button'>Risk Evaluation</button>
@@ -111,150 +111,172 @@ export const DetailsPage = () => {
               className="Modal"
             >
               <div className="Modal-header">
-                <h2>Risk assessment</h2>
-                <button className="Modal-close"
-                  onClick={closeModal}>
-                  X
-                </button>
+                <h2>Fund Risk Evaluation</h2>
               </div>
               <div className="Modal-body">
-                <p>Before initiating the smart contract for risk calculation and NFT creation, you need to upload evidence files</p>
+                <p>Please find the risk evalaluation simulation below</p>
+                <table className='popup-table'>
+                  <thead>
+                    <tr>
+                      <th className='table-header'>Country</th>
+                      <th className='table-header'>Sector</th>
+                      <th className='table-header'>Currency</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className='table-cell'>23%</td>
+                      <td className='table-cell'>43%</td>
+                      <td className='table-cell'>19%</td>
+                    </tr>
+
+                  </tbody>
+                </table>
                 <form onSubmit={handleSubmit}>
                   <h2>Upload Document:</h2>
                   <input type="file" onChange={handleFileChange} />
                   <button type="submit">Submit</button>
                 </form>
+                <p>IPFS address :</p>
               </div>
               <div className="Modal-footer">
-                <button onClick={closeModal}>Cancel</button>
+                <div className='validate-button'>
+                  <Button component={Link} to="/ValidatedDetails">
+                    Valider
+                  </Button>
+                </div>
+                <div className='cancel-button'><button onClick={closeModal}>Cancel</button></div>
               </div>
             </Modal>
-          </div>
-
-        </div>
-      </div>
 
 
-      <div className='id_table_sf'>
-        <div className="identite_fond">
-          <div className="identite_fond_texte">
-            <Typography variant="h1"><span style={{ fontWeight: 'bold', textDecoration: 'underline' }}>{tuple[0]}</span></Typography>
-            <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Nom : </span>{tuple[0]}</Typography>
-            <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>ID : </span>{tuple[1]}</Typography>
-            <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Statut : </span>{tuple[2]}</Typography>
-            <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>NFT : </span>{tuple[3]}</Typography>
-            <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Date : </span>{tuple[4]}</Typography>
+
+
           </div>
         </div>
 
-        <div className='table_sf'>
-          <Grid container direction="column" justifyContent="center">
 
-
-            {/* Titre de la liste */}
-            <Grid item xs={12} sx={{ mt: '20px' }}>
-              <Typography variant="h3" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
-                Liste des sous-fonds
-              </Typography>
-            </Grid>
-
-            <div className='search-add'>
-              {/* Barre de recherche et bouton dans le même conteneur */}
-              <Grid container spacing={2} alignItems="center">
-                {/* Barre de recherche */}
-                <Grid item xs={6}>
-                  <TextField label="Recherche" variant="outlined" fullWidth />
-                </Grid>
-
-                {/* Bouton Ajouter un fond */}
-                <Grid item xs={6} sx={{ textAlign: 'right' }}>
-
-                  {/* Bouton upload via excel */}
-                  <Button
-                    component={Link}
-                    to="/addFund"
-                    variant="outlined"
-                    sx={{ ml: '18px', mt: '4px', color: 'black', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}
-                  >
-                    <img src={addIcon} alt="Add" style={{ width: '24px', height: '24px' }} />   . Upload via Excel
-                  </Button>
-
-
-
-                  <Button
-                    component={Link}
-                    to="/addFund"
-                    variant="outlined"
-                    sx={{ ml: '18px', mt: '4px', color: 'black', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}
-                  >
-                    <img src={addIcon} alt="Add" style={{ width: '24px', height: '24px' }} />   . Add a fund
-                  </Button>
-
-                </Grid>
-              </Grid>
+        <div className='id_table_sf'>
+          <div className="identite_fond">
+            <div className="identite_fond_texte">
+              <Typography variant="h1"><span style={{ fontWeight: 'bold', textDecoration: 'underline' }}>{tuple[0]}</span></Typography>
+              <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Nom : </span>{tuple[0]}</Typography>
+              <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>ID : </span>{tuple[1]}</Typography>
+              <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Statut : </span>{tuple[2]}</Typography>
+              <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>NFT : </span>{tuple[3]}</Typography>
+              <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Date : </span>{tuple[4]}</Typography>
             </div>
-            {/* Tableau */}
-            <Grid item xs={12}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
-                <thead>
-                  <tr>
-                    <th style={{ border: '1px solid black', padding: '8px' }}>Nom</th>
-                    <th style={{ border: '1px solid black', padding: '8px' }}>ID</th>
-                    <th style={{ border: '1px solid black', padding: '8px' }}>Statut</th>
-                    <th style={{ border: '1px solid black', padding: '8px' }}>NFT</th>
-                    <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
-                    <th style={{ border: '1px solid black', padding: '8px' }}>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {items.map((tuple, index) => (
-                    <tr
-                      key={index}
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => handleTableRowClick(tuple, index)}
-                    >
-                      {tuple.map((item, i) => (
-                        <td key={i} style={{ border: '1px solid black', padding: '8px' }}>
-                          {item}
-                        </td>
-                      ))}
-                      <td style={{ border: '1px solid black', padding: '8px', textAlign: 'center' }}>
-                        {/* Actions */}
-                        <IconButton onClick={() => handleDeleteAction(index)}>
-                          <img src={deleteIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
-                        </IconButton>
-                        <IconButton onClick={() => handleViewAction(index)}>
-                          <img src={viewIcon} alt="View" style={{ width: '24px', height: '24px' }} />
-                        </IconButton>
-                        <IconButton onClick={() => handleEditAction(index)}>
-                          <img src={editIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
-                        </IconButton>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </Grid>
+          </div>
+
+          <div className='table_sf'>
+            <Grid container direction="column" justifyContent="center">
 
 
-
-            {/* Bouton Voir les données publiques */}
-            <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
-              <Grid item>
-                <Typography variant="h5" sx={{ fontFamily: 'Dancing Script' }}>
-                  Voir les données publiques :
+              {/* Titre de la liste */}
+              <Grid item xs={12} sx={{ mt: '20px' }}>
+                <Typography variant="h3" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
+                  Liste des sous-fonds
                 </Typography>
               </Grid>
-              <Grid item>
-                <Button component={Link} to="/data" sx={{ ml: '18px', mt: '4px' }}>
-                  Cliquez ici
-                </Button>
+
+              <div className='search-add'>
+                {/* Barre de recherche et bouton dans le même conteneur */}
+                <Grid container spacing={2} alignItems="center">
+                  {/* Barre de recherche */}
+                  <Grid item xs={6}>
+                    <TextField label="Recherche" variant="outlined" fullWidth />
+                  </Grid>
+
+                  {/* Bouton Ajouter un fond */}
+                  <Grid item xs={6} sx={{ textAlign: 'right' }}>
+
+                    {/* Bouton upload via excel */}
+                    <Button
+                      component={Link}
+                      to="/addFund"
+                      variant="outlined"
+                      sx={{ ml: '18px', mt: '4px', color: 'black', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}
+                    >
+                      <img src={addIcon} alt="Add" style={{ width: '24px', height: '24px' }} />   . Upload via Excel
+                    </Button>
+
+
+
+                    <Button
+                      component={Link}
+                      to="/addFund"
+                      variant="outlined"
+                      sx={{ ml: '18px', mt: '4px', color: 'black', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}
+                    >
+                      <img src={addIcon} alt="Add" style={{ width: '24px', height: '24px' }} />   . Add a fund
+                    </Button>
+
+                  </Grid>
+                </Grid>
+              </div>
+              {/* Tableau */}
+              <Grid item xs={12}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+                  <thead>
+                    <tr>
+                      <th style={{ border: '1px solid black', padding: '8px' }}>Nom</th>
+                      <th style={{ border: '1px solid black', padding: '8px' }}>ID</th>
+                      <th style={{ border: '1px solid black', padding: '8px' }}>Statut</th>
+                      <th style={{ border: '1px solid black', padding: '8px' }}>NFT</th>
+                      <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
+                      <th style={{ border: '1px solid black', padding: '8px' }}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {items.map((tuple, index) => (
+                      <tr
+                        key={index}
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => handleTableRowClick(tuple, index)}
+                      >
+                        {tuple.map((item, i) => (
+                          <td key={i} style={{ border: '1px solid black', padding: '8px' }}>
+                            {item}
+                          </td>
+                        ))}
+                        <td style={{ border: '1px solid black', padding: '8px', textAlign: 'center' }}>
+                          {/* Actions */}
+                          <IconButton onClick={() => handleDeleteAction(index)}>
+                            <img src={deleteIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
+                          </IconButton>
+                          <IconButton onClick={() => handleViewAction(index)}>
+                            <img src={viewIcon} alt="View" style={{ width: '24px', height: '24px' }} />
+                          </IconButton>
+                          <IconButton onClick={() => handleEditAction(index)}>
+                            <img src={editIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
+                          </IconButton>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </Grid>
+
+
+
+              {/* Bouton Voir les données publiques */}
+              <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
+                <Grid item>
+                  <Typography variant="h5" sx={{ fontFamily: 'Dancing Script' }}>
+                    Voir les données publiques :
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button component={Link} to="/data" sx={{ ml: '18px', mt: '4px' }}>
+                    Cliquez ici
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
+          </div>
+          {/* Conditionnellement rendre DetailsPage */}
+          {/*selectedTuple && <DetailsPage {...{ selectedTuple }} />*/}
         </div>
-        {/* Conditionnellement rendre DetailsPage */}
-        {/*selectedTuple && <DetailsPage {...{ selectedTuple }} />*/}
       </div>
     </div>
   );
