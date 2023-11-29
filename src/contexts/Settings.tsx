@@ -33,7 +33,7 @@ export const [
     const [settingState, setState] = useState({
       app_name        : 'ESG dApp',
       endpoint        : 'https://ghostnet.ecadinfra.com',
-      contract        : 'KT1FcUNmyZ255yyfqWL3GC1AGqSY2vKqYwEg',
+      contract        : 'KT1Jxav5JGBVY8ZULnGZUrH8qbsLbVpMRe9W',
       ipfs_browser    : 'https://gateway.pinata.cloud/ipfs/',
       network         :  NetworkType.GHOSTNET,
       theme           :  Theme.Default,

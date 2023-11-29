@@ -2,7 +2,7 @@ import { set_binder_tezos_toolkit } from '@completium/dapp-ts';
 import constate from 'constate';
 import { useState } from 'react';
 
-import { Poll as Contract } from '../bindings/poll';
+import { Esg_main as Contract } from '../bindings/main';
 import { useContractAddress } from './Settings';
 import { useTezosToolkit } from './Taquito';
 
