@@ -18,19 +18,23 @@ import ColorBox from '../components/ColorBox';
 import { auto, right } from '@popperjs/core';
 import { Address, Nat } from '@completium/archetype-ts-types';
 import { funds_key, sub_funds_key } from '../bindings/main';
-import { useWalletAddress } from '../contexts/Beacon';
+import { useConnect, useIsConnected, useWalletAddress } from '../contexts/Beacon';
 import { useContract } from '../contexts/Contract';
+import { Score } from './populate';
 
 
 const history = createBrowserHistory();
 
 
 export const DetailsPage = () => {
+  const connect = useConnect()
+  const is_connected = useIsConnected()
   const [loading, setLoading] = React.useState(false)
   const [fundsID, setfundsID] = React.useState("")
   const [funds, setfunds] = React.useState("")
   const [status, setstatus] = React.useState("")
   const [reportsID, setreportsID] = React.useState("")
+  const [ipfsLink, setipfsLink] = React.useState("")
   const [subfundsID, setsubfundsID] = React.useState("")
   const [subfunds, setsubfunds] = React.useState("")
   const contract = useContract() 
@@ -63,7 +67,6 @@ export const DetailsPage = () => {
       setsubfunds(subfunds.toString())
     }
   }
-
   const [selectedTuple, setSelectedTuple] = useState<[string, string, string, string, string] | null>(null);
   const navigate = useNavigate();
 
@@ -113,13 +116,36 @@ export const DetailsPage = () => {
     setIsModalOpen(false);
   };
 
-
-  function handleFileChange(event: ChangeEvent<HTMLInputElement>): void {
-    throw new Error('Function not implemented.');
+  async function uploadToIpfs() {
+    const pinataSDK = require('@pinata/sdk');
+    const pinata = new pinataSDK('807be971c091f63146df', '33a710d6e98b099732e8c382898e5f2363d0e293ad37cf4eb74d50b5a5c12140');
+    
+    const body = {
+      message: 'Pinatas are awesome'
+    };
+    const options = {
+        pinataMetadata: {
+            name: "MyCustomName",
+            keyvalues: {
+                customKey: 'customValue',
+                customKey2: 'customValue2'
+            }
+        },
+        pinataOptions: {
+            cidVersion: 0
+        }
+    };
+    const res1 = await pinata.pinJSONToIPFS(body, options)
+    const res2 = await pinata.pinJSONToIPFS(body, options)
+    //setipfsLink(res1)
+    //setipfsLink(res2)
+    //console.log(res1)
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
-    alert('hello')
+  function handleFileChange(): void {
+    console.log("TESTTTTTTT")
+    setipfsLink(" ipfs://QmPibs6dkHjoJAkE9BiPURCnCBfphaT7P6y5MZ4eTYtyS9")
+    uploadToIpfs();
   }
 
   return (
@@ -172,12 +198,11 @@ export const DetailsPage = () => {
 
                   </tbody>
                 </table>
-                <form onSubmit={handleSubmit}>
+                <form>
                   <h2>Upload Document:</h2>
                   <input type="file" onChange={handleFileChange} />
-                  <button type="submit">Submit</button>
                 </form>
-                <p>IPFS address :</p>
+                <p>IPFS address :{ipfsLink}</p>
               </div>
               <div className="Modal-footer">
                 <div className='validate-button'>

@@ -152,16 +152,16 @@ const ListeFonds: React.FC = (): JSX.Element => {
             {/* Titre de la liste */}
             <Grid item xs={12} sx={{ mt: '20px' }}>
               <Typography variant="h2" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
-                Liste des fonds
+                Funds List
               </Typography>
             </Grid>
           </div>
 
 
           <div className="status-boxes" style={{ padding: '0px 0px 0px 0px', backgroundColor: 'rgba(213, 213, 213, 0.9)' }}>
-            <div className="box green-box"><span className="big-number">2</span> Validated</div>
-            <div className="box orange-box"><span className="big-number">4 </span> Reported</div>
-            <div className="box red-box"><span className="big-number">10 </span> To Be Reported</div>
+            <div className="box green-box"><span className="big-number">1</span> Validated</div>
+            <div className="box orange-box"><span className="big-number">1</span> Calculated</div>
+            <div className="box red-box"><span className="big-number">1</span> To Do</div>
           </div>
 
         </div>

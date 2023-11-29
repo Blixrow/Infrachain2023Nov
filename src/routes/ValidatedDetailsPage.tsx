@@ -15,6 +15,7 @@ import editIcon from '../assets/icons/view.png'
 import addIcon from '../assets/icons/plus.svg'
 import Modal from 'react-modal';
 import ColorBox from '../components/ColorBox';
+import { Score } from './populate';
 
 
 
@@ -31,9 +32,7 @@ const history = createBrowserHistory();
 
 
 export const DetailsPage = () => {
-
-
-
+  Score(1, "29/11/2023", "ipfs://QmPibs6dkHjoJAkE9BiPURCnCBfphaT7P6y5MZ4eTYtyS9", "ipfs://QmBahepcjalI1AkE9BiPURCnCBfphaT7P6y5MZ4eTYtyS9");
   const [selectedTuple, setSelectedTuple] = useState<[string, string, string, string, string] | null>(null);
   const navigate = useNavigate();
   const handleTableRowClick = (tuple: [string, string, string, string, string], index: number) => {

@@ -8,6 +8,11 @@ import { Nat } from '@completium/archetype-ts-types';
 import { useConnect, useIsConnected, useWalletAddress } from "../contexts/Beacon";
 import React from 'react';
 
+export const Score = async (fundid : number, time : string, data : string, files : string) => {
+  const contract = useContract()
+  await contract.score(new Nat(fundid), time, data, files,{})
+}
+
 export const Pop = () => {
   const connect = useConnect()
   const is_connected = useIsConnected()
@@ -86,18 +91,7 @@ export const Pop = () => {
       setLoading(false)
     }
   }
-  const score = async (fundid : number, time : string, data : string, files : string) => {
-    setLoading(true)
-    try {
-      if (!is_connected()) {
-        await connect()
-      }
-      await contract.score(new Nat(fundid), time, data, files,{})
-      setLoading(false)
-    } catch (e) {
-      setLoading(false)
-    }
-  }
+
   const audit = async (tokenid : number, validate : boolean) => {
     setLoading(true)
     try {
@@ -138,7 +132,7 @@ export const Pop = () => {
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Calculate Score :</Typography>
-          <Button onClick={() => score(2, "28/11/2023 - 14h10", "link 1", "link 2")} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => Score(2, "28/11/2023 - 14h10", "link 1", "link 2")} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Validate NFT :</Typography>
