@@ -33,13 +33,13 @@ const ColorBox: React.FC<ColorBoxProps> = ({ statut }) => {
   };
 
   const boxStyle: React.CSSProperties = {
-    width: '50px',
-    height: '50px',
+    width: '70px',
+    height: '70px',
     border: '1px solid #000', // Ajoutez une bordure noire
     marginBottom: '5px', // Espace entre les boîtes
     borderRadius: '50%', // Rend les coins de la boîte ronds
-    marginRight :'20px',
-    marginLeft :'20px',
+    marginRight :'40px',
+    marginLeft :'40px',
   };
 
 
@@ -48,7 +48,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({ statut }) => {
       {/* Première boîte */}
       <div style={columnStyle}>
         {/* Texte pour la première boîte */}
-        <span style={{ color: 'black' }}>To Do</span>
+        <span style={{ color: 'black', fontSize: '25px' }}>To Do</span>
         {/* Boîte de couleur avec le style spécifique */}
         <div style={{ ...boxStyle, backgroundColor: getBoxColor(statut, 0) }}></div>
       </div>
@@ -58,7 +58,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({ statut }) => {
       {/* Deuxième boîte */}
       <div style={columnStyle}>
         {/* Texte pour la deuxième boîte */}
-        <span style={{ color: 'black' }}>Calculated</span>
+        <span style={{ color: 'black' , fontSize: '25px'}}>Calculated</span>
         {/* Boîte de couleur avec le style spécifique */}
         <div style={{ ...boxStyle, backgroundColor: getBoxColor(statut, 1) }}></div>
       </div>
@@ -68,7 +68,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({ statut }) => {
       {/* Troisième boîte */}
       <div style={columnStyle}>
         {/* Texte pour la troisième boîte */}
-        <span style={{ color: 'black' }}>Validated</span>
+        <span style={{ color: 'black', fontSize: '25px' }}>Validated</span>
         {/* Boîte de couleur avec le style spécifique */}
         <div style={{ ...boxStyle, backgroundColor: getBoxColor(statut, 2) }}></div>
       </div>
