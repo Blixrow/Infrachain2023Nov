@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import '../assets/DetailsPage.css';
@@ -58,7 +58,7 @@ export const DetailsPage = () => {
   const location = useLocation();
   const tuple = location.state?.tuple || [];
 
-  const statut:number=2;
+  const statut: number = 2;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -71,11 +71,19 @@ export const DetailsPage = () => {
   };
 
 
+  function handleFileChange(event: ChangeEvent<HTMLInputElement>): void {
+    throw new Error('Function not implemented.');
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
 
     <div className='total-boxe_sf'>
       <div className='inline-div'>
-        
+
 
         <div className="identite_fond">
           <div className="identite_fond_texte">
@@ -99,10 +107,25 @@ export const DetailsPage = () => {
             isOpen={isModalOpen}
             onRequestClose={closeModal}
             contentLabel="Example Modal"
+            overlayClassName="Overlay"
+            className="Modal"
           >
             <h2>Popup Content</h2>
             <p>This is the content of the popup.</p>
             <button onClick={closeModal}>Close Popup</button>
+
+            <div> 
+              <h1>Welcome to our App!</h1> 
+              <div> 
+              <h2>Scores:</h2> 
+              <ul> 
+                <li>Score 1: 90</li> 
+                <li>Score 2: 75</li> 
+                <li>Score 3: 82</li> 
+              </ul> 
+              </div> 
+            </div>
+            <form onSubmit={handleSubmit}> <h2>Upload Document:</h2> <input type="file" onChange={handleFileChange} /> <button type="submit">Submit</button> </form>
           </Modal>
         </div>
 
