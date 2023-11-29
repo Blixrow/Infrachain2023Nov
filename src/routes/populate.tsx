@@ -126,7 +126,7 @@ export const Pop = () => {
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Create Sub_Fund :</Typography>
-          <Button onClick={() => createSubFund(1, 15, "SubFund Test", "France", "EUR", "Finance", 30)} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => createSubFund(1, 2, "My second SubFund", "Russia", "RUB", "Water Transport", 45)} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Update Sub_Fund :</Typography>

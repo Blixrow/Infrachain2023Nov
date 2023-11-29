@@ -16,32 +16,73 @@ import addIcon from '../assets/icons/plus.svg'
 import Modal from 'react-modal';
 import ColorBox from '../components/ColorBox';
 import { auto, right } from '@popperjs/core';
+import { Address, Nat } from '@completium/archetype-ts-types';
+import { funds_key, sub_funds_key } from '../bindings/main';
+import { useWalletAddress } from '../contexts/Beacon';
+import { useContract } from '../contexts/Contract';
 
-
-
-
-const items: [string, string, string, string, string][] = [
-  ["Item 1a", "1", "Statut 1", "NFT 1", "2023-11-27"],
-  ["Item 2a", "2", "Statut 2", "NFT 2", "2023-11-28"],
-  ["Item 3a", "3", "Statut 3", "NFT 3", "2023-11-29"],
-  ["Item 4a", "4", "Statut 4", "NFT 4", "2023-11-30"],
-  ["Item 5a", "5", "Statut 5", "NFT 5", "2023-12-01"],
-];
 
 const history = createBrowserHistory();
 
 
 export const DetailsPage = () => {
-
-
+  const [loading, setLoading] = React.useState(false)
+  const [fundsID, setfundsID] = React.useState("")
+  const [funds, setfunds] = React.useState("")
+  const [status, setstatus] = React.useState("")
+  const [reportsID, setreportsID] = React.useState("")
+  const [subfundsID, setsubfundsID] = React.useState("")
+  const [subfunds, setsubfunds] = React.useState("")
+  const contract = useContract() 
+  const wallet_address = useWalletAddress()
+  async function getSubFundIDs(fundId : string) {
+    if (wallet_address) {
+      const subFunds = await contract.get_funds_value(new funds_key(new Nat(parseInt(fundId)),new Address(wallet_address)))
+      if (subFunds) {
+        setsubfundsID(subFunds.f_subs.toString())
+      }
+    }
+  }
+  async function getSubFunds(fundsId : string) {
+    if (wallet_address) {
+      const [subfundsids] = await Promise.all([getSubFundIDs(fundsId)]);
+      const ids = subfundsID.split(",")
+      var subfunds : String[] = []
+      await Promise.all(ids.map(async value => {
+        const subfund = await contract.get_sub_funds_value(new sub_funds_key(new Nat(parseInt(value)),new Nat(parseInt(fundsId)),new Address(wallet_address)))
+        if (subfund) {
+          var country_risk = await contract.get_country_map_value(subfund.sf_country)
+          var currency_risk = await contract.get_currency_map_value(subfund.sf_currency)
+          var sector_risk = await contract.get_sector_map_value(subfund.sf_sector)
+          if (!country_risk) { country_risk = false}
+          if (!currency_risk) { currency_risk = false}
+          if (!sector_risk) { sector_risk = false}
+          subfunds.push(value+"/"+subfund.sf_name+"/"+subfund.sf_country+"/"+country_risk+"/"+subfund.sf_currency+"/"+currency_risk+"/"+subfund.sf_sector+"/"+sector_risk+"/"+subfund.sf_nav)
+        }
+      }));
+      setsubfunds(subfunds.toString())
+    }
+  }
 
   const [selectedTuple, setSelectedTuple] = useState<[string, string, string, string, string] | null>(null);
   const navigate = useNavigate();
-  const handleTableRowClick = (tuple: [string, string, string, string, string], index: number) => {
-    setSelectedTuple(tuple);
-    //history.push(`/details/${index}`);
-    navigate(`../details`, { state: { tuple } });
-  };
+
+  var items: [string, string, string, string, string, string, string, string, string][] = [];
+  function updateitems() {
+    Promise.all([getSubFunds("1")])
+    if (subfunds) {
+      subfunds.split(",").map( (value, index, array) => {
+        var splitted = value.split("/")
+        console.log("TEST 1", splitted)
+        items[index] = [splitted[1], splitted[0], splitted[2], splitted[3],splitted[4],splitted[5],splitted[6],splitted[7],splitted[8]]
+        console.log("TEST 2: Done")
+      })
+    }
+  }
+  
+  Promise.all([updateitems()])
+
+
 
   function handleDeleteAction(index: number) {
     throw new Error('Function not implemented.');
@@ -78,7 +119,9 @@ export const DetailsPage = () => {
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+    console.log("test");
     event.preventDefault();
+    console.log("test");
     throw new Error('Function not implemented.');
   }
 
@@ -196,10 +239,13 @@ export const DetailsPage = () => {
                   <tr>
                     <th style={{ border: '1px solid black', padding: '8px' }}>Nom</th>
                     <th style={{ border: '1px solid black', padding: '8px' }}>ID</th>
-                    <th style={{ border: '1px solid black', padding: '8px' }}>Statut</th>
-                    <th style={{ border: '1px solid black', padding: '8px' }}>NFT</th>
-                    <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
-                    <th style={{ border: '1px solid black', padding: '8px' }}>Actions</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>Country</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>Risked</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>Currency</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>Risked</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>Sector</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>Risked</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>%NAV</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -207,7 +253,6 @@ export const DetailsPage = () => {
                     <tr
                       key={index}
                       style={{ cursor: 'pointer' }}
-                      onClick={() => handleTableRowClick(tuple, index)}
                     >
                       {tuple.map((item, i) => (
                         <td key={i} style={{ border: '1px solid black', padding: '8px' }}>
