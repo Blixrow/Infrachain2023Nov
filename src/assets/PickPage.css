@@ -1,0 +1,8 @@
+.page1-button {
+    font-size: 4em; /* Adjust the font size to make the button very large */
+    background-color: red; /* Set the background color to transparent */
+    border: none; /* Remove border */
+    color: inherit; /* Use the default text color */
+    cursor: pointer; /* Add a pointer cursor to indicate interactivity */
+  }
+  
