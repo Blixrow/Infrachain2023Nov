@@ -20,6 +20,7 @@ import AddFund from './routes/AddFund';
 import './App.css'
 
 import backgroundImage from './assets/images/background.jpg';
+import { Pop } from './routes/populate';
 import ValidatedDetailsPage from './routes/ValidatedDetailsPage';
 
 
@@ -51,12 +52,16 @@ const router = createBrowserRouter([
     element: <DetailsPage />,
   },
   {
-    path: "/ValidatedDetails",
-    element: <ValidatedDetailsPage />,
-  },
-  {
     path: "/data",
     element: <Data />,
+  },
+  {
+    path: "/pop",
+    element: <Pop />,
+  },
+  {
+    path: "/ValidatedDetails",
+    element: <ValidatedDetailsPage/>,
   },
   {
     path: "/addFund",

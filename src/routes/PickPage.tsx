@@ -11,7 +11,7 @@ export const Pick = () => {
     <Grid2 container direction="row" justifyContent="center" alignItems="center">
       <Grid2>
         <Typography variant="h2" sx={{ mt: '140px', mb : '60px', fontFamily: 'Dancing Script', justifyContent : 'center' }}>
-          Welcome !
+          
         </Typography>
       </Grid2>
       <Grid2 item xs={12}>

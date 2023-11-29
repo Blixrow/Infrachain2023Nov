@@ -191,9 +191,9 @@ export const DetailsPage = () => {
                   </thead>
                   <tbody>
                     <tr>
-                      <td className='table-cell'>23%</td>
-                      <td className='table-cell'>43%</td>
-                      <td className='table-cell'>19%</td>
+                      <td className='table-cell'>45%</td>
+                      <td className='table-cell'>30%</td>
+                      <td className='table-cell'>30%</td>
                     </tr>
 
                   </tbody>
@@ -202,7 +202,7 @@ export const DetailsPage = () => {
                   <h2>Upload Document:</h2>
                   <input type="file" onChange={handleFileChange} />
                 </form>
-                <p>IPFS address :{ipfsLink}</p>
+                <p>Your documents have been uploaded to IPFS address: {ipfsLink}</p>
               </div>
               <div className="Modal-footer">
                 <div className='validate-button'>
