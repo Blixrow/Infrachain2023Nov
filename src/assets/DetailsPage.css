@@ -4,7 +4,7 @@
      padding: 30px; /* Espacement interne */
      max-width: 300px; /* Largeur maximale */
      /*margin-top: 30%;*/
-     margin-left: 10%;
+     margin-left: 5%;
    }
 
    /* Ajoutez cette classe pour centrer horizontalement le contenu */
@@ -15,6 +15,8 @@
 
 .total-boxe_sf{
   background-color: rgba(213, 213,213, 0.9);
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .popup-Button{
@@ -23,17 +25,17 @@
 }
 
 .inline-div {
-  display: inline-flex; /* or use 'display: inline;' */
-  background-color: lightblue;
-
+  display: flex;
+  /*justify-content: space-between;  Ajustez selon vos besoins */
   align-items: center;
-  /*justify-content: center;*/
   width: 100%;
   margin-top: 10%;
+  padding: 20px; /* Ajoutez un padding pour l'espace entre les éléments */
 }
 
+
 .color-box{
-  border: 10px solid #000000; /* Bordure grise /
+  /*border: 10px solid #000000; /* Bordure grise /
   border-radius: 10px; / Coins arrondis /
   padding: 30px; / Espacement interne /
   max-width: 300px; / Largeur maximale */
@@ -41,6 +43,44 @@
   display: flex;
 }
 
+
+
+.identite_fond {
+  float:left;
+  width:60%;
+}
+.table_sf {
+  margin-left:60%   
+}
+
+
+/*
+.table_sf {
+  margin-left: 5%;
+  margin-right: 5%;
+}*/
+
+
+
+/* Styles pour le bouton */
+.popup-Button {
+display: inline-block;
+padding: 20px 40px; /* Ajustez la taille du bouton en modifiant ces valeurs */
+font-size: 18px; /* Ajustez la taille de la police en modifiant cette valeur */
+text-align: center;
+text-decoration: none;
+cursor: pointer;
+border: none;
+border-radius: 8px;
+color: #ffffff; /* Couleur du texte */
+background-color: #3498db; /* Couleur de fond du bouton */
+transition: background-color 0.3s ease; /* Animation de transition de la couleur de fond */
+}
+
+/* Changez la couleur de fond du bouton au survol */
+.popup-Button:hover {
+background-color: #2980b9; /* Nouvelle couleur de fond au survol */
+}
 .Overlay {
   position: fixed;
   top: 0;

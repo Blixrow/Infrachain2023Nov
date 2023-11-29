@@ -58,7 +58,8 @@ export const DetailsPage = () => {
   const location = useLocation();
   const tuple = location.state?.tuple || [];
 
-  const statut: number = 2;
+
+  const statut: number = 0;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -87,23 +88,12 @@ export const DetailsPage = () => {
       <div className='inline-div'>
 
 
-        <div className="identite_fond">
-          <div className="identite_fond_texte">
-            <Typography variant="h4">{tuple[0]}</Typography>
-            <Typography variant="h6">Nom: {tuple[0]}</Typography>
-            <Typography variant="h6">ID: {tuple[1]}</Typography>
-            <Typography variant="h6">Statut: {tuple[2]}</Typography>
-            <Typography variant="h6">NFT: {tuple[3]}</Typography>
-            <Typography variant="h6">Date: {tuple[4]}</Typography>
-          </div>
-        </div>
-
         <div className='color-box'>
           <ColorBox statut={statut} /> {/* Ajoutez la boîte de couleur ici */}
         </div>
 
-        <div className='popup-Button'>
-          <button onClick={openModal}>Open Popup</button>
+        <div className='popup-Button_div'>
+          <button onClick={openModal} className='popup-Button'>Risk Evaluation</button>
 
           <Modal
             isOpen={isModalOpen}
@@ -135,101 +125,114 @@ export const DetailsPage = () => {
 
       </div>
 
-      <div className='table_sf'>
+      
+      <div className='id_table_sf'>
+        <div className="identite_fond">
+            <div className="identite_fond_texte">
+              <Typography variant="h3">{tuple[0]}</Typography>
+              <Typography variant="h5">Nom: {tuple[0]}</Typography>
+              <Typography variant="h5">ID: {tuple[1]}</Typography>
+              <Typography variant="h5">Statut: {tuple[2]}</Typography>
+              <Typography variant="h5">NFT: {tuple[3]}</Typography>
+              <Typography variant="h5">Date: {tuple[4]}</Typography>
+            </div>
+          </div>
 
-        <Grid container direction="column" justifyContent="center">
+        <div className='table_sf'>
+          <Grid container direction="column" justifyContent="center">
 
 
-          {/* Titre de la liste */}
-          <Grid item xs={12} sx={{ mt: '20px' }}>
-            <Typography variant="h2" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
-              Liste des sous-fonds
-            </Typography>
-          </Grid>
+            {/* Titre de la liste */}
+            <Grid item xs={12} sx={{ mt: '20px' }}>
+              <Typography variant="h2" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
+                Liste des sous-fonds
+              </Typography>
+            </Grid>
 
-          <div className='search-add'>
-            {/* Barre de recherche et bouton dans le même conteneur */}
-            <Grid container spacing={2} alignItems="center">
-              {/* Barre de recherche */}
-              <Grid item xs={6}>
-                <TextField label="Recherche" variant="outlined" fullWidth />
+            <div className='search-add'>
+              {/* Barre de recherche et bouton dans le même conteneur */}
+              <Grid container spacing={2} alignItems="center">
+                {/* Barre de recherche */}
+                <Grid item xs={6}>
+                  <TextField label="Recherche" variant="outlined" fullWidth />
+                </Grid>
+
+                {/* Bouton Ajouter un fond */}
+                <Grid item xs={6} sx={{ textAlign: 'right' }}>
+                  <Button
+                    component={Link}
+                    to="/addFund"
+                    variant="outlined"
+                    sx={{ ml: '18px', mt: '4px', color: 'black', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}
+                  >
+                    <img src={addIcon} alt="Add" style={{ width: '24px', height: '24px' }} />   Add a fund
+                  </Button>
+                </Grid>
               </Grid>
+            </div>
+            {/* Tableau */}
+            <Grid item xs={12}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+                <thead>
+                  <tr>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>Nom</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>ID</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>Statut</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>NFT</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {items.map((tuple, index) => (
+                    <tr
+                      key={index}
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleTableRowClick(tuple, index)}
+                    >
+                      {tuple.map((item, i) => (
+                        <td key={i} style={{ border: '1px solid black', padding: '8px' }}>
+                          {item}
+                        </td>
+                      ))}
+                      <td style={{ border: '1px solid black', padding: '8px', textAlign: 'center' }}>
+                        {/* Actions */}
+                        <IconButton onClick={() => handleDeleteAction(index)}>
+                          <img src={deleteIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
+                        </IconButton>
+                        <IconButton onClick={() => handleViewAction(index)}>
+                          <img src={viewIcon} alt="View" style={{ width: '24px', height: '24px' }} />
+                        </IconButton>
+                        <IconButton onClick={() => handleEditAction(index)}>
+                          <img src={editIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
+                        </IconButton>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Grid>
 
-              {/* Bouton Ajouter un fond */}
-              <Grid item xs={6} sx={{ textAlign: 'right' }}>
-                <Button
-                  component={Link}
-                  to="/addFund"
-                  variant="outlined"
-                  sx={{ ml: '18px', mt: '4px', color: 'black', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}
-                >
-                  <img src={addIcon} alt="Add" style={{ width: '24px', height: '24px' }} />   Add a fund
+
+
+            {/* Bouton Voir les données publiques */}
+            <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
+              <Grid item>
+                <Typography variant="h5" sx={{ fontFamily: 'Dancing Script' }}>
+                  Voir les données publiques :
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Button component={Link} to="/data" sx={{ ml: '18px', mt: '4px' }}>
+                  Cliquez ici
                 </Button>
               </Grid>
             </Grid>
-          </div>
-          {/* Tableau */}
-          <Grid item xs={12}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
-              <thead>
-                <tr>
-                  <th style={{ border: '1px solid black', padding: '8px' }}>Nom</th>
-                  <th style={{ border: '1px solid black', padding: '8px' }}>ID</th>
-                  <th style={{ border: '1px solid black', padding: '8px' }}>Statut</th>
-                  <th style={{ border: '1px solid black', padding: '8px' }}>NFT</th>
-                  <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
-                  <th style={{ border: '1px solid black', padding: '8px' }}>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {items.map((tuple, index) => (
-                  <tr
-                    key={index}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => handleTableRowClick(tuple, index)}
-                  >
-                    {tuple.map((item, i) => (
-                      <td key={i} style={{ border: '1px solid black', padding: '8px' }}>
-                        {item}
-                      </td>
-                    ))}
-                    <td style={{ border: '1px solid black', padding: '8px', textAlign: 'center' }}>
-                      {/* Actions */}
-                      <IconButton onClick={() => handleDeleteAction(index)}>
-                        <img src={deleteIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
-                      </IconButton>
-                      <IconButton onClick={() => handleViewAction(index)}>
-                        <img src={viewIcon} alt="View" style={{ width: '24px', height: '24px' }} />
-                      </IconButton>
-                      <IconButton onClick={() => handleEditAction(index)}>
-                        <img src={editIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
-                      </IconButton>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
           </Grid>
-
-
-
-          {/* Bouton Voir les données publiques */}
-          <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
-            <Grid item>
-              <Typography variant="h5" sx={{ fontFamily: 'Dancing Script' }}>
-                Voir les données publiques :
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Button component={Link} to="/data" sx={{ ml: '18px', mt: '4px' }}>
-                Cliquez ici
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
+        </div>
+        {/* Conditionnellement rendre DetailsPage */}
+        {/*selectedTuple && <DetailsPage {...{ selectedTuple }} />*/}
       </div>
-      {/* Conditionnellement rendre DetailsPage */}
-      {/*selectedTuple && <DetailsPage {...{ selectedTuple }} />*/}
     </div>
   );
 };
