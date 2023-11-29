@@ -114,7 +114,7 @@ export const Pop = () => {
       <Grid2 container direction="row" justifyContent="center" alignItems="center" sx={{ mt : '120px', mb: '18px' }}>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Create Fund :</Typography>
-          <Button onClick={() => createFund(1,"Test")} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => createFund(2,"Fund 2A")} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Delete Fund :</Typography>
@@ -138,7 +138,7 @@ export const Pop = () => {
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Calculate Score :</Typography>
-          <Button onClick={() => score(1, "28/11/2023 - 14h10", "link 1", "link 2")} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => score(2, "28/11/2023 - 14h10", "link 1", "link 2")} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Validate NFT :</Typography>

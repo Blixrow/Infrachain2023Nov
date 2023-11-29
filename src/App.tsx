@@ -20,6 +20,7 @@ import AddFund from './routes/AddFund';
 import './App.css'
 
 import backgroundImage from './assets/images/background.jpg';
+import { Pop } from './routes/populate';
 
 
 const backgroundStyle = { 
@@ -55,7 +56,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/pop",
-    element: <Data />,
+    element: <Pop />,
   },
   {
     path: "/addFund",
