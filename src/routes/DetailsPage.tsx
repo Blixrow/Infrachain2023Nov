@@ -58,7 +58,7 @@ export const DetailsPage = () => {
   const location = useLocation();
   const tuple = location.state?.tuple || [];
 
-  const statut:number=2;
+  const statut:number=0;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -79,12 +79,12 @@ export const DetailsPage = () => {
 
         <div className="identite_fond">
           <div className="identite_fond_texte">
-            <Typography variant="h4">{tuple[0]}</Typography>
-            <Typography variant="h6">Nom: {tuple[0]}</Typography>
-            <Typography variant="h6">ID: {tuple[1]}</Typography>
-            <Typography variant="h6">Statut: {tuple[2]}</Typography>
-            <Typography variant="h6">NFT: {tuple[3]}</Typography>
-            <Typography variant="h6">Date: {tuple[4]}</Typography>
+            <Typography variant="h3">{tuple[0]}</Typography>
+            <Typography variant="h5">Nom: {tuple[0]}</Typography>
+            <Typography variant="h5">ID: {tuple[1]}</Typography>
+            <Typography variant="h5">Statut: {tuple[2]}</Typography>
+            <Typography variant="h5">NFT: {tuple[3]}</Typography>
+            <Typography variant="h5">Date: {tuple[4]}</Typography>
           </div>
         </div>
 
@@ -92,8 +92,8 @@ export const DetailsPage = () => {
           <ColorBox statut={statut} /> {/* Ajoutez la boîte de couleur ici */}
         </div>
 
-        <div className='popup-Button'>
-          <button onClick={openModal}>Open Popup</button>
+        <div className='popup-Button_div'>
+          <button onClick={openModal} className='popup-Button'>Risk Evaluation</button>
 
           <Modal
             isOpen={isModalOpen}
