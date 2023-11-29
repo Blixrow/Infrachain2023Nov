@@ -152,7 +152,7 @@ background-color: #153c57; /* Nouvelle couleur de fond au survol */
   align-self: left;
   align-content: center;
   align-items: center;
-  margin-right: 25%;
+  margin-right: 40%;
 }
 
 .cancel-button{
@@ -173,4 +173,22 @@ background-color: #153c57; /* Nouvelle couleur de fond au survol */
 
 .table-header{
   border: 1px solid #ddd;
+}
+
+.table_cell{
+  border: 1px solid black;
+}
+
+.table_header{
+  border: 1px solid black;
+}
+
+
+.Score_table {
+  border: 3px solid black;
+  padding: 8px;
+  text-align: center;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #d3d3d3;
 }
