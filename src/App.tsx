@@ -56,6 +56,14 @@ const router = createBrowserRouter([
     element: <Data />,
   },
   {
+    path: "/pop",
+    element: <Pop />,
+  },
+  {
+    path: "/ValidatedDetails",
+    element: <ValidatedDetailsPage/>,
+  },
+  {
     path: "/addFund",
     element: <AddFund />,
   },
