@@ -14,10 +14,18 @@ import deleteIcon from '../assets/icons/bin.svg'
 import viewIcon from '../assets/icons/pen.png'
 import editIcon from '../assets/icons/view.png'
 import addIcon from '../assets/icons/plus.svg'
-import { useContract } from "../contexts/Contract";
-import { Nat, Address } from '@completium/archetype-ts-types';
-import { useConnect, useIsConnected, useWalletAddress } from "../contexts/Beacon";
+import { useContract } from '../contexts/Contract';
+import { useWalletAddress } from '../contexts/Beacon';
 import { funds_key } from '../bindings/main';
+import { Address, Nat } from '@completium/archetype-ts-types';
+
+const items: [string, string, string, string, string][] = [
+  ["Item 1a", "1", "Statut 1", "NFT 1", "2023-11-27"],
+  ["Item 2a", "2", "Statut 2", "NFT 2", "2023-11-28"],
+  ["Item 3a", "3", "Statut 3", "NFT 3", "2023-11-29"],
+  ["Item 4a", "4", "Statut 4", "NFT 4", "2023-11-30"],
+  ["Item 5a", "5", "Statut 5", "NFT 5", "2023-12-01"],
+];
 
 const history = createBrowserHistory();
 
@@ -104,7 +112,7 @@ const ListeFonds: React.FC = (): JSX.Element => {
       if (stats.indexOf(splitted[0]+"/Calculated") > -1) {
         stat = "Calculated"
       }
-      items[index] = [splitted[1], splitted[0], stat, "N/A", "2023-11-27"]
+      items[index] = [splitted[1], splitted[0], stat, "None", "2023-11-27"]
     })
   }
   Promise.all([updateitems()])
@@ -133,33 +141,31 @@ const ListeFonds: React.FC = (): JSX.Element => {
   }
 
   return (
-    <Container style={{marginTop:'5%', padding: '5px 0px 0px 0px', backgroundColor: 'rgba(213, 213, 213, 0.9)' }}>
 
-      <Grid item xs={12} sx={{ mt: '20px' }}>
-        <Typography variant="h2" sx={{ mt: '40px', mb: '10px', ml: '5%', justifyContent: 'center' }}>
-          Liste des fonds
-        </Typography>
-      </Grid>
-
-      <div className="status-boxes">
-        <div className="box green-box"><span className="big-number">2</span> Validated</div>
-        <div className="box orange-box"><span className="big-number">4 </span> Reported</div>
-        <div className="box red-box"><span className="big-number">10 </span> To Be Reported</div>
-      </div>
-
-
+    <div className="total_lf" style={{backgroundColor: 'rgba(213, 213, 213, 0.9)' }}>
 
       <Grid container direction="column" justifyContent="center" style={{ padding: '0px 20px 0px 20px' }}>
-        
-        {/*
-        {/* Titre de la liste 
-        <Grid item xs={12} sx={{ mt: '20px' }}>
-          <Typography variant="h2" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
-            Liste des fonds
-          </Typography>
-        </Grid>
-        */}
-        
+        <div className='top_lf'>
+
+
+          <div className='title_lf_left'>
+            {/* Titre de la liste */}
+            <Grid item xs={12} sx={{ mt: '20px' }}>
+              <Typography variant="h2" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
+                Liste des fonds
+              </Typography>
+            </Grid>
+          </div>
+
+
+          <div className="status-boxes" style={{ padding: '0px 0px 0px 0px', backgroundColor: 'rgba(213, 213, 213, 0.9)' }}>
+            <div className="box green-box"><span className="big-number">2</span> Validated</div>
+            <div className="box orange-box"><span className="big-number">4 </span> Reported</div>
+            <div className="box red-box"><span className="big-number">10 </span> To Be Reported</div>
+          </div>
+
+        </div>
+
 
         <div className='search-add'>
           {/* Barre de recherche et bouton dans le même conteneur */}
@@ -187,9 +193,9 @@ const ListeFonds: React.FC = (): JSX.Element => {
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
             <thead>
               <tr>
-                <th style={{ border: '1px solid black', padding: '8px' }}>Nom</th>
+                <th style={{ border: '1px solid black', padding: '8px' }}>Name</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>ID</th>
-                <th style={{ border: '1px solid black', padding: '8px' }}>Statut</th>
+                <th style={{ border: '1px solid black', padding: '8px' }}>Status</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>NFT</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>Actions</th>
@@ -228,22 +234,22 @@ const ListeFonds: React.FC = (): JSX.Element => {
 
 
         {/* Bouton Voir les données publiques */}
-        <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
+        <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '30px', mb: '18px' }}>
           <Grid item>
-            <Typography variant="h5" sx={{ fontFamily: 'Dancing Script' }}>
-              Voir les données publiques :
+            <Typography variant="h5" sx={{ fontSize: '11px' }}>
+              Public data:
             </Typography>
           </Grid>
           <Grid item>
-            <Button component={Link} to="/data" sx={{ ml: '18px', mt: '4px' }}>
-              Cliquez ici
+            <Button component={Link} to="/data" sx={{color: 'black', ml: '18px', mt: '4px' }}>
+              available here
             </Button>
           </Grid>
         </Grid>
       </Grid>
       {/* Conditionnellement rendre DetailsPage */}
       {/*selectedTuple && <DetailsPage {...{ selectedTuple }} />*/}
-    </Container>
+    </div>
   );
 };
 

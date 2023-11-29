@@ -1,3 +1,26 @@
+
+.inline-div {
+  display: flex;
+  justify-content: space-between;  /*Ajustez selon vos besoins */
+  width: 100%;
+  padding: 40px; /* Ajoutez un padding pour l'espace entre les éléments */
+}
+
+.title_sf_left{
+  margin-right: 15%;
+  width: 100%;
+}
+
+.sf_right{
+  display: flex;
+  justify-content: flex-end;  /*Ajustez selon vos besoins */
+  width: 100%;
+  padding: 40px; /* Ajoutez un padding pour l'espace entre les éléments */
+}
+
+
+
+
 .status-boxes {
     margin-top: 120px; /* Ajustez la valeur selon vos besoins */
     display: flex;

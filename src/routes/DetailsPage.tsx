@@ -157,7 +157,7 @@ export const DetailsPage = () => {
 
         <div className='title_sf_left'>
 
-          <Typography><span style={{fontSize: '90px', fontWeight: 'bold', textDecoration: 'underline' }}>{tuple[0]}</span><span style={{fontSize: '90px', textDecoration: 'underline' }}>: Sub-Funds</span></Typography>
+          <Typography><span style={{fontSize: '90px', fontWeight: 'bold', textDecoration: '' }}>{tuple[0]}</span></Typography>
         </div>
 
         <div className='sf_right'>
@@ -224,9 +224,9 @@ export const DetailsPage = () => {
         <div className='id_table_sf'>
           <div className="identite_fond">
             <div className="identite_fond_texte">
-              <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Nom : </span>{tuple[0]}</Typography>
+              <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Name : </span>{tuple[0]}</Typography>
               <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>ID : </span>{tuple[1]}</Typography>
-              <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Statut : </span>{tuple[2]}</Typography>
+              <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Status : </span>{tuple[2]}</Typography>
               <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>NFT : </span>{tuple[3]}</Typography>
               <Typography variant="h4"><span style={{ fontWeight: 'bold' }}>Date : </span>{tuple[4]}</Typography>
             </div>
@@ -239,7 +239,7 @@ export const DetailsPage = () => {
               {/* Titre de la liste */}
               <Grid item xs={12} sx={{ mt: '20px' }}>
                 <Typography variant="h3" sx={{ mt: '40px', mb: '10px', justifyContent: 'center' }}>
-                  Liste des sous-fonds
+                  Sub-funds list
                 </Typography>
               </Grid>
 
@@ -292,6 +292,7 @@ export const DetailsPage = () => {
                       <th style={{ border: '1px solid black', padding: '8px' }}>Sector</th>
                     <th style={{ border: '1px solid black', padding: '8px' }}>Risked</th>
                     <th style={{ border: '1px solid black', padding: '8px' }}>%NAV</th>
+                    <th style={{ border: '1px solid black', padding: '8px' }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -325,7 +326,7 @@ export const DetailsPage = () => {
 
 
 
-              {/* Bouton Voir les données publiques */}
+              {/* Bouton Voir les données publiques 
               <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
                 <Grid item>
                   <Typography variant="h5" sx={{ fontFamily: 'Dancing Script' }}>
@@ -337,7 +338,7 @@ export const DetailsPage = () => {
                     Cliquez ici
                   </Button>
                 </Grid>
-              </Grid>
+              </Grid>*/}
             </Grid>
           </div>
           {/* Conditionnellement rendre DetailsPage */}
