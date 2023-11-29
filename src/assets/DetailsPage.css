@@ -131,8 +131,22 @@ background-color: #2980b9; /* Nouvelle couleur de fond au survol */
 
 .Modal-footer {
   padding: 10px;
-  text-align: right;
+  justify-content: flex-end;
   border-top: 1px solid #ddd;
+  display: flex;
+}
+
+
+.validate-button{
+  justify-content: flex-start !important;
+  align-self: left;
+  align-content: center;
+  align-items: center;
+  margin-right: 25%;
+}
+
+.cancel-button{
+  align-self: flex-end;
 }
 .popup-table {
   border: 1px solid #ddd;
