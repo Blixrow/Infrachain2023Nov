@@ -1,0 +1,265 @@
+archetype esg_token(owner : address) with metadata ""
+
+/* Pausable ------------------------------------------------------------------------ */
+variable paused : bool = false
+
+entry pause() {
+  no transfer
+  called by owner
+  require {
+    not_paused: not paused otherwise CONTRACT_PAUSED
+  }
+  effect {
+    paused := true
+  }
+}
+
+entry unpause() {
+  no transfer
+  called by owner
+  require {
+    is_paused: paused otherwise CONTRACT_NOT_PAUSED
+  }
+  effect {
+    paused := false
+  }
+}
+
+/* OWNERSHIP TRANSFER ------------------------------------------------------- */
+entry declare_ownership(candidate : address) {
+    no transfer
+    called by owner
+    effect {
+        owner := candidate;
+    }
+}
+
+entry declare_admin(candidate : address) {
+    no transfer
+    called by owner
+    effect {
+        admin := candidate;
+    }
+}
+
+/* Token Transfert Policy ---------------------------------------------------------- */
+enum transfer_policy_type =
+| No_transfer (* default *)
+| Owner_transfer
+
+variable global_transfer_policy : transfer_policy_type = No_transfer
+
+entry global_policy_change(policy : transfer_policy_type) {
+    no transfer
+    called by owner
+    require { rq1 : not paused otherwise CONTRACT_PAUSED }
+    effect {
+        global_transfer_policy := policy
+    }
+}
+
+/* METADATA ---------------------------------------------------------------- */
+entry set_metadata(k: string, d : option<bytes>) {
+  no transfer
+  called by owner
+  require { md_r1 : not paused otherwise CONTRACT_PAUSED }
+  effect {
+    metadata.update(k, d)
+  }
+}
+
+asset token_metadata to big_map {
+  meta_token_id   : nat;
+  token_id        : nat;
+  token_info      : map<string, bytes>;
+}
+
+entry set_token_metadata (tok_id : nat) {
+  no transfer
+  called by admin
+  require { tmd_r1: not paused otherwise CONTRACT_PAUSED }
+  effect {
+    token_metadata[tok_id].token_info.put("validated", 0x596573);
+  }
+}
+
+/* ERRORS ----------------------------------------------------------------- */
+constant CONTRACT_PAUSED          : string = "CONTRACT_PAUSED"
+constant CONTRACT_NOT_PAUSED      : string = "CONTRACT_NOT_PAUSED"
+constant NO_TRANSFER_ALLOWED      : string = "NO_TRANSFER_ALLOWED"
+constant FA2_INSUFFICIENT_BALANCE : string = "FA2_INSUFFICIENT_BALANCE"
+constant FA2_INVALID_AMOUNT       : string = "FA2_INVALID_AMOUNT"
+constant FA2_NOT_OPERATOR         : string = "FA2_NOT_OPERATOR"
+constant FA2_NOT_OWNER            : string = "FA2_NOT_OWNER"
+constant FA2_TOKEN_UNDEFINED      : string = "FA2_TOKEN_UNDEFINED"
+constant SIGNER_NOT_FROM          : string = "SIGNER_NOT_FROM"
+
+/* PARAMETERS ------------------------------------------------------------- */
+
+record transfer_destination {
+  to_dest           : address;
+  token_id_dest     : nat;
+  token_amount_dest : nat
+} as ((%to_, (token_id, amount)))
+
+record transfer_param {
+  tp_from : address;
+  tp_txs  : list<transfer_destination>;
+} as ((%from_, %txs))
+
+/* STORAGE ---------------------------------------------------------------- */
+variable admin : address = owner
+constant reporting_certif_link : bytes = 0x697066733a2f2f6261666b7265696436356b726e626170686f72786f736d797a6c7777627635677773366e626536656237623377633736756d62353679646b636634
+constant verified_certif_link : bytes = 0x697066733a2f2f6261666b7265696436356b726e626170686f72786f736d797a6c7777627635677773366e626536656237623377633736756d62353679646b636634
+
+asset ledger identified by l_token_id to big_map {
+  l_token_id   : nat;
+  l_owner     : address;
+}
+
+asset operator identified by oaddr otoken oowner to big_map {
+  oaddr       : address;
+  otoken      : nat;
+  oowner      : address;
+}
+
+/* ENTRYPOINTS ------------------------------------------------------------- */
+
+record operator_param {
+  opp_owner    : address;
+  opp_operator : address;
+  opp_token_id : nat
+} as ((owner, (operator, token_id)))
+
+enum update_op =
+| add_operator<operator_param>
+| remove_operator<operator_param>
+
+entry update_operators (upl : list<update_op>) {
+  no transfer
+  require { fa2_r1 : not paused otherwise CONTRACT_PAUSED }
+  effect {
+    for up in upl do
+      match up with
+      | add_operator(param) ->
+        do_require(param.opp_owner = caller , FA2_NOT_OWNER);
+        operator.put({param.opp_operator; param.opp_token_id; param.opp_owner})
+      | remove_operator(param) ->
+        do_require(param.opp_owner = caller , FA2_NOT_OWNER);
+        operator.remove((param.opp_operator, param.opp_token_id, param.opp_owner))
+      end;
+    done;
+  }
+}
+
+entry %transfer (txs : list<transfer_param>) {
+  no transfer
+  called by self_address
+  effect {
+    match global_transfer_policy with
+    | No_transfer -> fail(NO_TRANSFER_ALLOWED)
+    | Owner_transfer ->
+      for tx in txs do
+      const %from = tx.tp_from;
+      const tds   = tx.tp_txs;
+      for td in tds do begin
+        const tokenid = td.token_id_dest;
+        const towner ?= ledger[tokenid]?.l_owner : FA2_TOKEN_UNDEFINED;
+        do_require(caller = towner, FA2_NOT_OWNER);
+        if td.token_amount_dest > 0
+        then begin
+          do_require(towner = %from and td.token_amount_dest = 1, FA2_INSUFFICIENT_BALANCE);
+          ledger.update(tokenid, { l_owner = td.to_dest })
+        end
+      end done
+    done
+    end;
+  }
+}
+
+function string_to_bytes(s : string) : bytes {
+  const hex : map<string, bytes> = [
+    (" ",0x20); ("!",0x21); ("\"",0x22);("#",0x23); ("$",0x24); ("%",0x25); ("&",0x26); ("'",0x27);
+    ("(",0x28); (")",0x29); ("*",0x2A); ("+",0x2B); (",",0x2C); ("-",0x2D); (".",0x2E); ("/",0x2F);
+    ("0",0x30); ("1",0x31); ("2",0x32); ("3",0x33); ("4",0x34); ("5",0x35); ("6",0x36); ("7",0x37);
+    ("8",0x38); ("9",0x39); (":",0x3A); (";",0x3B); ("<",0x3C); ("=",0x3D); (">",0x3E); ("?",0x3F);
+    ("@",0x40); ("A",0x41); ("B",0x42); ("C",0x43); ("D",0x44); ("E",0x45); ("F",0x46); ("G",0x47);
+    ("H",0x48); ("I",0x49); ("J",0x4A); ("K",0x4B); ("L",0x4C); ("M",0x4D); ("N",0x4E); ("O",0x4F);
+    ("P",0x50); ("Q",0x51); ("R",0x52); ("S",0x53); ("T",0x54); ("U",0x55); ("V",0x56); ("W",0x57);
+    ("X",0x58); ("Y",0x59); ("Z",0x5A); ("[",0x5B); ("\\",0x5C); ("]",0x5D); ("^",0x5E); ("_",0x5F);
+    ("`",0x60); ("a",0x61); ("b",0x62); ("c",0x63); ("d",0x64); ("e",0x65); ("f",0x66); ("g",0x67);
+    ("h",0x68); ("i",0x69); ("j",0x6A); ("k",0x6B); ("l",0x6C); ("m",0x6D); ("n",0x6E); ("o",0x6F);
+    ("p",0x70); ("q",0x71); ("r",0x72); ("s",0x73); ("t",0x74); ("u",0x75); ("v",0x76); ("w",0x77);
+    ("x",0x78); ("y",0x79); ("z",0x7A); ("{",0x7B); ("|",0x7C); ("}",0x7D); ("~",0x7E)
+  ];
+  var res : list<bytes> = [];
+  iter i to length(s) do
+    res.prepend((slice(s, abs(i), 1) ? (hex[the] ? the : 0x00) : 0x00))
+  done;
+  var temp = slice(concat(reverse(res)),0,int_to_nat(length(res)-1) ? the : length(res)) ? the : 0x00;
+  return temp
+}
+
+entry mint (tow : address, tid : nat, name : string, timestamp : string, c_score : string, d_score : string, s_score : string) {
+  no transfer
+  called by admin
+  require { fa2_r5: not paused otherwise CONTRACT_PAUSED }
+  effect {
+    const temp : map<string, bytes> = [
+      ("name", string_to_bytes(name));
+      ("country score", string_to_bytes(c_score));
+      ("currency score", string_to_bytes(d_score));
+      ("sector score", string_to_bytes(s_score));
+      ("timestamp", string_to_bytes(timestamp));
+      ("validated", 0x4e6f);
+      ("symbol", 0x524550);
+      ("decimals", 0x30);
+      ("artifactUri", reporting_certif_link);
+      ("displayUri", reporting_certif_link);
+      ("thumbnailUri", reporting_certif_link)
+    ];
+    ledger.add({ l_token_id = tid; l_owner = tow });
+    token_metadata.add({
+      meta_token_id = tid;
+      token_id   = tid;
+      token_info = temp
+    });
+  }
+}
+
+entry burn(tid : nat) {
+  no transfer
+  called by admin
+  require {
+    fa2_r6: not paused otherwise CONTRACT_PAUSED;
+    b1 : ledger.contains(tid) otherwise FA2_TOKEN_UNDEFINED;
+  }
+  effect {
+    ledger.remove(tid);
+    token_metadata.remove(tid);
+  }
+}
+
+/* GETTERS ----------------------------------------------------------------- */
+
+record balance_of_request {
+  bo_owner : address;
+  btoken_id : nat;
+} as ((owner, token_id))
+
+record balance_of_response {
+  request : balance_of_request;
+  balance_ : nat;
+} as ((request, balance))
+
+function get_balance(br : balance_of_request) : nat {
+  const token ?= ledger[br.btoken_id] : FA2_TOKEN_UNDEFINED;
+  return (token.l_owner = br.bo_owner ? 1 : 0)
+}
+
+getter balance_of (requests : list<balance_of_request>) : list<balance_of_response> {
+  return map(requests, br -> {
+    request = br;
+    balance_ = get_balance(br)
+  })
+}

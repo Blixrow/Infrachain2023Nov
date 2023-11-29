@@ -1,72 +1,68 @@
-.identite_fond {
-     border: 10px solid #000000; /* Bordure grise */
-     border-radius: 10px; /* Coins arrondis */
-     padding: 30px; /* Espacement interne */
-     max-width: 300px; /* Largeur maximale */
-     /*margin-top: 30%;*/
-     margin-left: 5%;
-   }
 
-   /* Ajoutez cette classe pour centrer horizontalement le contenu */
-.identite_fond_texte {
-     text-align: left;
-     font-size: 20px;
-}
 
 .total-boxe_sf{
   background-color: rgba(213, 213,213, 0.9);
   margin-left: 5%;
   margin-right: 5%;
+  margin-top: 10%;
 }
 
-.popup-Button{
-  color: aliceblue;
-  margin-left: 30%;
+
+/* Div du bas, tableau et ID*/
+.identite_fond {
+     border: 10px solid #000000; /* Bordure grise */
+     border-radius: 10px; /* Coins arrondis */
+     padding: 30px; /* Espacement interne */
+     max-width: 300px; /* Largeur maximale */
+     margin-left: 2%;
+     float: left;
+   }
+
+
+   /* Ajoutez cette classe pour centrer horizontalement le contenu */
+.identite_fond_texte {
+    text-align: left;
+    font-size: 20px;
 }
+
+.table_sf {
+  margin-left:25%;
+  margin-right: 2%;   
+}
+
+.id_table_sf{
+  background-color: aquamarine;
+  justify-content: flex;
+}
+
+
+
+
+/* Div du haut*/
+
 
 .inline-div {
   display: flex;
-  /*justify-content: space-between;  Ajustez selon vos besoins */
-  align-items: center;
+  justify-content: flex-end;  /*Ajustez selon vos besoins */
   width: 100%;
-  margin-top: 10%;
   padding: 20px; /* Ajoutez un padding pour l'espace entre les éléments */
+  background-color: aqua;
+  padding-left: 40%;
 }
-
 
 .color-box{
-  /*border: 10px solid #000000; /* Bordure grise /
-  border-radius: 10px; / Coins arrondis /
-  padding: 30px; / Espacement interne /
-  max-width: 300px; / Largeur maximale */
-  margin-left: 30%;
-  display: flex;
+
+  margin-right: 10%;
 }
-
-
-
-.identite_fond {
-  float:left;
-  width:60%;
-}
-.table_sf {
-  margin-left:60%   
-}
-
-
-/*
-.table_sf {
-  margin-left: 5%;
-  margin-right: 5%;
-}*/
-
 
 
 /* Styles pour le bouton */
 .popup-Button {
+
+
 display: inline-block;
-padding: 20px 40px; /* Ajustez la taille du bouton en modifiant ces valeurs */
-font-size: 18px; /* Ajustez la taille de la police en modifiant cette valeur */
+padding: 30px 80px; /* Ajustez la taille du bouton en modifiant ces valeurs */
+font-size: 20px; /* Ajustez la taille de la police en modifiant cette valeur */
 text-align: center;
 text-decoration: none;
 cursor: pointer;
