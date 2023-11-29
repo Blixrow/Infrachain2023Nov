@@ -1,12 +1,21 @@
+.total_lf{
+  background-color: rgba(213, 213,213, 0.9);
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 10%;
+  padding-bottom: 200px;
+}
 
-.inline-div {
+
+
+.top_lf {
   display: flex;
   justify-content: space-between;  /*Ajustez selon vos besoins */
   width: 100%;
   padding: 40px; /* Ajoutez un padding pour l'espace entre les éléments */
 }
 
-.title_sf_left{
+.title_lf_left{
   margin-right: 15%;
   width: 100%;
 }
@@ -18,17 +27,15 @@
   padding: 40px; /* Ajoutez un padding pour l'espace entre les éléments */
 }
 
-
-
-
 .status-boxes {
     margin-top: 120px; /* Ajustez la valeur selon vos besoins */
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     column-gap: 1px;
     /*justify-content: space-between;
     /*background-color: cadetblue;*/
     padding: 20px 10px 10px 10px;
+    width: 100%;
   }
 
   .box {

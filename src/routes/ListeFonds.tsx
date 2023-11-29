@@ -145,8 +145,8 @@ const ListeFonds: React.FC = (): JSX.Element => {
     <div className="total_lf" style={{backgroundColor: 'rgba(213, 213, 213, 0.9)' }}>
 
       <Grid container direction="column" justifyContent="center" style={{ padding: '0px 20px 0px 20px' }}>
-        <div className='top_lf'>
 
+        <div className='top_lf'>
 
           <div className='title_lf_left'>
             {/* Titre de la liste */}
