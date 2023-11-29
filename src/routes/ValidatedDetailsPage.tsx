@@ -27,6 +27,8 @@ const history = createBrowserHistory();
 
 
 export const DetailsPage = () => {
+  Score(1, "29/11/2023", "ipfs://QmPibs6dkHjoJAkE9BiPURCnCBfphaT7P6y5MZ4eTYtyS9", "ipfs://QmPibs6dkHjoJAkE9BiPURCnCBfphaT7P6y5MZ4eTYtyS9")
+
   const connect = useConnect()
   const is_connected = useIsConnected()
   const [loading, setLoading] = React.useState(false)
