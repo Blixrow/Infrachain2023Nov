@@ -112,7 +112,7 @@ export const Pop = () => {
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Delete Fund :</Typography>
-          <Button onClick={() => deleteFund(1)} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => deleteFund(2)} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Update Fund :</Typography>
@@ -120,7 +120,7 @@ export const Pop = () => {
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Create Sub_Fund :</Typography>
-          <Button onClick={() => createSubFund(1, 2, "My second SubFund", "Russia", "RUB", "Water Transport", 45)} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => createSubFund(1, 3, "My third SubFund", "Australia", "AUD", "Real Estate", 25)} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Update Sub_Fund :</Typography>
@@ -128,7 +128,7 @@ export const Pop = () => {
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Delete Sub_Fund :</Typography>
-          <Button onClick={() => deleteSubFund(1, 10)} sx={{ mt : '7px'}}>Click Here</Button>
+          <Button onClick={() => deleteSubFund(2, 1)} sx={{ mt : '7px'}}>Click Here</Button>
         </Grid2>
         <Grid2 container direction="row" justifyContent="center" alignItems="center">
           <Typography variant="h5" sx={{ fontFamily : 'Dancing Script' }}>Calculate Score :</Typography>

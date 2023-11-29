@@ -112,7 +112,10 @@ const ListeFonds: React.FC = (): JSX.Element => {
       if (stats.indexOf(splitted[0]+"/Calculated") > -1) {
         stat = "Calculated"
       }
-      items[index] = [splitted[1], splitted[0], stat, "None", "2023-11-27"]
+      if (splitted[1]!=""){
+        items[index] = [splitted[1], splitted[0], stat, "None", "2023-11-27"]
+      }
+      
     })
   }
   Promise.all([updateitems()])
