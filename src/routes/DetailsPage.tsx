@@ -15,6 +15,7 @@ import editIcon from '../assets/icons/view.png'
 import addIcon from '../assets/icons/plus.svg'
 import Modal from 'react-modal';
 import ColorBox from '../components/ColorBox';
+import { auto, right } from '@popperjs/core';
 
 
 
@@ -128,12 +129,15 @@ export const DetailsPage = () => {
                 <input type="file" onChange={handleFileChange} />
                 <button type="submit">Submit</button>
               </form>
+              <p>IPFS address :</p>
             </div>
             <div className="Modal-footer">
-              <Button component={Link} to="/ValidatedDetails" sx={{ ml: '18px', mt: '4px' }}>
-                Valider
-              </Button>
-              <button onClick={closeModal}>Cancel</button>
+              <div className='validate-button'>
+                <Button component={Link} to="/ValidatedDetails">
+                  Valider
+                </Button>
+              </div>
+              <div className='cancel-button'><button onClick={closeModal}>Cancel</button></div>
             </div>
           </Modal>
         </div>
