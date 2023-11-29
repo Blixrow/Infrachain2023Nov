@@ -7,7 +7,9 @@ const UserDisplayName = () => {
 
   return (
     <div>
-      <span style={{fontSize: '35px', fontWeight: 'bold'}}>{'John Doe' || 'Aucun utilisateur connecté'}</span>
+      <p style={{ fontSize: '20px', fontWeight: 'bold' }}>
+        {address ? 'John Doe' : 'Aucun utilisateur connecté'}
+      </p>
       {/* Le reste de votre composant UserDisplayName */}
     </div>
   );
