@@ -104,7 +104,7 @@ const ListeFonds: React.FC = (): JSX.Element => {
       if (stats.indexOf(splitted[0]+"/Calculated") > -1) {
         stat = "Calculated"
       }
-      items[index] = [splitted[1], splitted[0], stat, "N/A", "2023-11-27"]
+      items[index] = [splitted[1], splitted[0], stat, "None", "2023-11-27"]
     })
   }
   Promise.all([updateitems()])
@@ -137,14 +137,14 @@ const ListeFonds: React.FC = (): JSX.Element => {
 
       <Grid item xs={12} sx={{ mt: '20px' }}>
         <Typography variant="h2" sx={{ mt: '40px', mb: '10px', ml: '5%', justifyContent: 'center' }}>
-          Liste des fonds
+          Funds List
         </Typography>
       </Grid>
 
       <div className="status-boxes">
         <div className="box green-box"><span className="big-number">2</span> Validated</div>
-        <div className="box orange-box"><span className="big-number">4 </span> Reported</div>
-        <div className="box red-box"><span className="big-number">10 </span> To Be Reported</div>
+        <div className="box orange-box"><span className="big-number">4 </span> Calculated</div>
+        <div className="box red-box"><span className="big-number">10 </span> To Do</div>
       </div>
 
 
@@ -187,9 +187,9 @@ const ListeFonds: React.FC = (): JSX.Element => {
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
             <thead>
               <tr>
-                <th style={{ border: '1px solid black', padding: '8px' }}>Nom</th>
+                <th style={{ border: '1px solid black', padding: '8px' }}>Name</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>ID</th>
-                <th style={{ border: '1px solid black', padding: '8px' }}>Statut</th>
+                <th style={{ border: '1px solid black', padding: '8px' }}>Status</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>NFT</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
                 <th style={{ border: '1px solid black', padding: '8px' }}>Actions</th>
@@ -228,15 +228,15 @@ const ListeFonds: React.FC = (): JSX.Element => {
 
 
         {/* Bouton Voir les données publiques */}
-        <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '12px', mb: '18px' }}>
+        <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ mt: '30px', mb: '18px' }}>
           <Grid item>
-            <Typography variant="h5" sx={{ fontFamily: 'Dancing Script' }}>
-              Voir les données publiques :
+            <Typography variant="h5" sx={{ fontSize: '11px' }}>
+              Public data:
             </Typography>
           </Grid>
           <Grid item>
-            <Button component={Link} to="/data" sx={{ ml: '18px', mt: '4px' }}>
-              Cliquez ici
+            <Button component={Link} to="/data" sx={{color: 'black', ml: '18px', mt: '4px' }}>
+              available here
             </Button>
           </Grid>
         </Grid>
