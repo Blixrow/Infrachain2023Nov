@@ -14,6 +14,7 @@
     "@mui/lab": "^5.0.0-alpha.102",
     "@mui/material": "^5.14.18",
     "@taquito/beacon-wallet": "^15.1.0",
+    "@taquito/michel-codec": "^17.4.0",
     "@taquito/taquito": "^15.1.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
