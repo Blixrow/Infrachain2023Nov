@@ -1,3 +1,8 @@
+# WARNING
+
+The latest code version is located in the "front" branch and NOT in the "master" branche.
+
+
 # TO READ BEFORE DOING ANYTHING
 https://tezos.com/developers/tutorials/building-dapp/
 
